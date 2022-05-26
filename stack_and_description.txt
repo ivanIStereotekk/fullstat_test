@@ -1,0 +1,8 @@
+- Django
+- DjangoRestFramework
+- Celery
+- Pytest
+- PostgreSQL
+- Docker
+- Docker-compose
+- Git
