@@ -74,9 +74,11 @@ DATABASES = {
 # - postgres via psycopg
 import psycopg
 
+
+
 DATABASES = {
 'default': {
-'ENGINE': 'django.db.backends.postgresql_psycopg',
+'ENGINE': 'django.db.backends.postgresql',
 'NAME': 'my_db',
 'USER': 'postgres',
 'PASSWORD': 'superpassword',
