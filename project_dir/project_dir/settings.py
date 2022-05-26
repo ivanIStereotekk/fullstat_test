@@ -72,17 +72,13 @@ DATABASES = {
 }
 '''
 # - postgres via psycopg
-import psycopg
-
-
-
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.postgresql',
 'NAME': 'my_db',
 'USER': 'postgres',
 'PASSWORD': 'superpassword',
-'HOST': 'django_sql',
+'HOST': 'localhost',
 'PORT': '5432'
 }
 }
