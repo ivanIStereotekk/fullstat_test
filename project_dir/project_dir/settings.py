@@ -72,6 +72,7 @@ DATABASES = {
 }
 '''
 # - postgres via psycopg
+
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.postgresql',
