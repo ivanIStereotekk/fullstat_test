@@ -45,7 +45,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('post_detail', kwargs={'pk': self.pk})
+        return reverse('post_id', kwargs={'pk': self.pk})
 
 
 class Bookmark(models.Model):
