@@ -1,17 +1,22 @@
 import uuid
 
 from django.db import models
-from django.contrib.auth.models import User
 
+
+
+from django.urls import reverse
 class Person(models.Model):
     '''
-    Person who are related with django.User class
+    Person who are ordinary service user
     '''
-    user = models.OneToOneField(User,on_delete=models.CASCADE,verbose_name='Username')
+    username = models.TextField(verbose_name='Username')
+    email = models.EmailField(null=True, verbose_name='Email')
+    password = models.TextField(null=True, verbose_name='Password')
     token = models.TextField(max_length=555,verbose_name='JWT')
+    def __str__(self):
+        return self.username
     def get_absolute_url(self):
-        from django.urls import reverse
-        return reverse('user_id', kwargs={'pk': self.pk})
+        return reverse('person_id', kwargs={'pk': self.pk})
 
 '''
 По Статье хранится следующая информация
@@ -26,37 +31,44 @@ class Person(models.Model):
 - Моя оценка (-1, 0, 1)
 - Рейтинг (число)
 '''
+from django.urls import reverse
 
 class Post(models.Model):
     '''
     POSTS of published posts
     '''
-    uuid_tag = models.UUIDField(primary_key=False,default=uuid.uuid4)
-    title = models.TextField(null=True,verbose_name='Title')
-    autor = models.ForeignKey(Person,on_delete=models.PROTECT,verbose_name='Author')
+    uuid_tag = models.UUIDField(primary_key=False,default=uuid.uuid4,null=True)
+    title = models.TextField(null=True,verbose_name='Title of Article')
+    author = models.ForeignKey(Person,on_delete=models.PROTECT,null=True,verbose_name='Author')
     discription = models.TextField(null=True,verbose_name='Short description')
     content = models.TextField(verbose_name='Text')
-    req_count = models.IntegerField(null=True,verbose_name='Counter')
+    req_count = models.IntegerField(null=True,verbose_name='Counter watched times')
     like = models.IntegerField(null=True,verbose_name='Like')
     disslike = models.IntegerField(null=True,verbose_name='Disslike')
-    slag_field = models.SlugField(max_length=66,verbose_name='Slag')
+    slag = models.SlugField(null=True,max_length=100,verbose_name='Slag')
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='Created')
     bookmarks = models.ManyToManyField('Bookmark',through='Link',through_fields=('posts','bookmark'),null=True)
-
+    def __str__(self):
+        return self.title
     def get_absolute_url(self):
-        from django.urls import reverse
-        return reverse('post_id', kwargs={'pk': self.pk})
-
+        return reverse('post-detail', kwargs={'pk': self.pk})
+    class Meta:
+        verbose_name = 'Publication'
+        verbose_name_plural = 'Publications'
+        ordering = ['-created_at']
 
 class Bookmark(models.Model):
     '''
     user's bookmarks set linked model
     '''
-    user = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name='Bookmark')
-
+    person = models.ForeignKey(Person,on_delete=models.PROTECT,verbose_name='Bookmark')
+    def __str__(self):
+        return self.person
 class Link(models.Model):
     '''
     Link model trough set of records bookmarks and posts - ManyToMany
     '''
     posts = models.ForeignKey('Post',on_delete=models.CASCADE)
     bookmark = models.ForeignKey('Bookmark',on_delete=models.CASCADE,verbose_name='link_bookmark')
+    def __str__(self):
+        return self.pk
