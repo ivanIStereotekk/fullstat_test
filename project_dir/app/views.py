@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from django.contrib.auth.models import User
 
+from .models import *
+
 from rest_framework import generics
 from rest_framework.viewsets import*
 
@@ -18,17 +20,17 @@ def index(request):
 #----------API' - LIST OBJECTS
 
 class User_List_View_api(generics.ListCreateAPIView):
-    queryset = User.objects.all()
+    queryset = Person.objects.all()
     serializer_class = User_Serializer()
 
 
 class User_Detail_View_api(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
+    queryset = Person.objects.all()
     serializer_class = User_Serializer()
 
 
 class User_Set_View_api(ModelViewSet):
-    queryset = User.objects.all()
+    queryset = Person.objects.all()
     serializer_class = User_Serializer()
 
 
