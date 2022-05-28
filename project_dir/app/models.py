@@ -9,7 +9,7 @@ class Person(models.Model):
     '''
     Person who are ordinary service user
     '''
-    username = models.TextField(verbose_name='Username')
+    username = models.TextField(max_length=100,verbose_name='Username')
     email = models.EmailField(null=True, verbose_name='Email')
     password = models.TextField(null=True, verbose_name='Password')
     token = models.TextField(max_length=555,verbose_name='JWT')

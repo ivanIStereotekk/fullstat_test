@@ -1,13 +1,10 @@
-from django.shortcuts import render
-
-from django.contrib.auth.models import User
 
 from .models import *
 
-from rest_framework import generics
+
 from rest_framework.viewsets import*
 
-from .serializers import User_Serializer,Link_Serializer,Person_Serializer,Post_Serializer
+from .serializers import Link_Serializer, Person_Serializer, Post_Serializer, Bookmark_Serializer
 
 from django.http import HttpResponse
 
@@ -17,21 +14,29 @@ def index(request):
 
 
 
-#----------API' - LIST OBJECTS
-
-class User_List_View_api(generics.ListCreateAPIView):
+# - ViewSet --PERSON
+class Person_View_Set_Api(ModelViewSet):
     queryset = Person.objects.all()
-    serializer_class = User_Serializer()
+    serializer_class = Person_Serializer()
+
+# - ViewSet - POST
+class Post_View_Set_Api(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = Post_Serializer()
+
+# - ViewSet - LINK
+class Link_View_Set_Api(ModelViewSet):
+    queryset = Link.objects.all()
+    serializer_class = Link_Serializer()
+# - ViewSet - BOOKMARK
+class Bookmark_View_Set_Api(ModelViewSet):
+    queryset = Bookmark.objects.all()
+    serializer_class = Bookmark_Serializer()
+
+#-----------
 
 
-class User_Detail_View_api(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Person.objects.all()
-    serializer_class = User_Serializer()
 
-
-class User_Set_View_api(ModelViewSet):
-    queryset = Person.objects.all()
-    serializer_class = User_Serializer()
 
 
 

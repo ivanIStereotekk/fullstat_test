@@ -3,11 +3,7 @@ from .models import Post,Person,Bookmark,Link
 from django.contrib.auth.models import User
 
 
-#-----
-class User_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = "__all__"
+
 #-----
 class Post_Serializer(serializers.HyperlinkedModelSerializer):
     class Meta:
