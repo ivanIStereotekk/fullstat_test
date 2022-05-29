@@ -17,6 +17,10 @@ class Person(models.Model):
         return self.username
     def get_absolute_url(self):
         return reverse('person_id', kwargs={'pk': self.pk})
+    class Meta:
+        verbose_name = 'Registred User'
+        verbose_name_plural = 'Registred User\'s'
+        ordering = ['username']
 
 '''
 По Статье хранится следующая информация
@@ -38,22 +42,26 @@ class Post(models.Model):
     POSTS of published posts
     '''
     uuid_tag = models.UUIDField(primary_key=False,default=uuid.uuid4,null=True)
-    title = models.TextField(null=True,verbose_name='Title of Article')
+    title = models.TextField(null=True,max_length=80,verbose_name='Title of Article')
     author = models.ForeignKey(Person,on_delete=models.PROTECT,null=True,verbose_name='Author')
-    discription = models.TextField(null=True,verbose_name='Short description')
-    content = models.TextField(verbose_name='Text')
-    req_count = models.IntegerField(null=True,verbose_name='Counter watched times')
+    discription = models.TextField(null=True,max_length=250,verbose_name='Short description')
+    content = models.TextField(verbose_name='Text body')
+    req_count = models.IntegerField(default=0,null=True,verbose_name='Reading counter')
     like = models.IntegerField(null=True,verbose_name='Like')
     disslike = models.IntegerField(null=True,verbose_name='Disslike')
-    slag = models.SlugField(null=True,max_length=100,verbose_name='Slag')
+    slag = models.SlugField(null=True,max_length=90,verbose_name='Url-slag')
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='Created')
-    bookmarks = models.ManyToManyField('Bookmark',through='Link',through_fields=('posts','bookmark'),null=True)
+    bookmarks = models.ManyToManyField('Bookmark',through='Link',through_fields=('posts','bookmark'))
+    rating = models.IntegerField(null=True,verbose_name='Rating Of publication')
+    def increment(self):
+        self.req_count +=1
+        return self.req_count
     def __str__(self):
         return self.title
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
     class Meta:
-        verbose_name = 'Publication'
+        verbose_name = 'Publication or Post'
         verbose_name_plural = 'Publications'
         ordering = ['-created_at']
 
@@ -61,6 +69,7 @@ class Bookmark(models.Model):
     '''
     user's bookmarks set linked model
     '''
+    bookmark_name = models.TextField(null=True,max_length=80,verbose_name='Bookmark title')
     person = models.ForeignKey(Person,on_delete=models.PROTECT,verbose_name='Bookmark')
     def __str__(self):
         return str(self.person.pk)
@@ -68,7 +77,10 @@ class Link(models.Model):
     '''
     Link model trough set of records bookmarks and posts - ManyToMany
     '''
+    CHOOSE = (('-0','Minus'),('0','Null'),('1','Plus One'))
     posts = models.ForeignKey('Post',on_delete=models.CASCADE)
     bookmark = models.ForeignKey('Bookmark',on_delete=models.CASCADE,verbose_name='link_bookmark')
+    estimation = models.CharField(max_length=4,choices=CHOOSE,verbose_name='My estimation')
+    is_bookmarked = models.BooleanField(default=True,null=True,verbose_name='Is Bookmarked')
     def __str__(self):
         return str(self.pk)
