@@ -7,7 +7,7 @@ from django.db import models
 from django.urls import reverse
 class Person(models.Model):
     '''
-    Person who are ordinary service user
+    Person who is ordinary service user
     '''
     username = models.TextField(max_length=100,verbose_name='Username')
     email = models.EmailField(null=True, verbose_name='Email')
@@ -63,7 +63,7 @@ class Bookmark(models.Model):
     '''
     person = models.ForeignKey(Person,on_delete=models.PROTECT,verbose_name='Bookmark')
     def __str__(self):
-        return self.person
+        return str(self.person.pk)
 class Link(models.Model):
     '''
     Link model trough set of records bookmarks and posts - ManyToMany
@@ -71,4 +71,4 @@ class Link(models.Model):
     posts = models.ForeignKey('Post',on_delete=models.CASCADE)
     bookmark = models.ForeignKey('Bookmark',on_delete=models.CASCADE,verbose_name='link_bookmark')
     def __str__(self):
-        return self.pk
+        return str(self.pk)

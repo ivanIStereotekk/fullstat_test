@@ -1,24 +1,26 @@
-from django.contrib import admin
-from django.urls import path,include
-from rest_framework.routers import DefaultRouter
+
+from django.urls import path
 from .views import*
 
-'''Classes - DefaultRouter - and Registred_Routers'''
-person_router = DefaultRouter()
-post_router = DefaultRouter()
-link_router = DefaultRouter()
-bookmark_router = DefaultRouter()
-'''Registred'''
-person_router.register('person',Person_View_Set_Api)
-post_router.register('posts',Post_View_Set_Api)
-link_router.register('links',Link_View_Set_Api)
-bookmark_router.register('bookmark',Bookmark_View_Set_Api)
+from rest_framework import routers
+'''Class - SimpleRouter - and Registred_Routes'''
+router = routers.SimpleRouter()
+
+'''Registred routes
+--http://127.0.0.1:8000/persons/...int
+--http://127.0.0.1:8000/link/
+--http://127.0.0.1:8000/bookmark/
+--http://127.0.0.1:8000/posts/
+'''
+
+router.register(r'persons',Person_View_Set_Api)
+router.register(r'posts',Post_View_Set_Api)
+router.register(r'bookmarks',Bookmark_View_Set_Api)
+router.register(r'links',Link_View_Set_Api)
+
 
 '''URLS'''
 urlpatterns = [
     path('index/',index),
-    path('api/',include(person_router.urls)),
-    path('api/',include(post_router.urls)),
-    path('api/',include(link_router.urls)),
-    path('api/',include(bookmark_router.urls)),
     ]
+urlpatterns += router.urls
