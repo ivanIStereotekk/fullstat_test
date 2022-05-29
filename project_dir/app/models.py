@@ -1,10 +1,7 @@
 import uuid
-
-from django.db import models
-
-
-
 from django.urls import reverse
+from django.db import models
+#---ORM Models:
 class Person(models.Model):
     '''
     Person who is ordinary service user
@@ -22,20 +19,7 @@ class Person(models.Model):
         verbose_name_plural = 'Registred User\'s'
         ordering = ['username']
 
-'''
-По Статье хранится следующая информация
-- Артикул статьи (число)
-- Заголовок статьи транслитом (строка)
-- Заголовок статьи (строка)
-- Автор (строка)
-- Краткое содержание (строка | макс. 250 символов)
-- Содержание (строка)
-- Количество просмотров (число)
-- В избранном (true/false)
-- Моя оценка (-1, 0, 1)
-- Рейтинг (число)
-'''
-from django.urls import reverse
+
 
 class Post(models.Model):
     '''
