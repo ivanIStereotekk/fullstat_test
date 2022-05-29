@@ -2,11 +2,11 @@
 from .models import *
 
 
-from rest_framework.viewsets import ModelViewSet,ViewSetMixin
+from rest_framework.viewsets import ModelViewSet
 
-from .serializers import Link_Serializer, Person_Serializer, Post_Serializer, Bookmark_Serializer
+from .serializers import Link_Serializer, Person_Serializer, Post_Serializer, Bookmark_Serializer,Manager_Serializer
 
-from django.http import HttpResponse,JsonResponse,request
+from django.http import HttpResponse
 
 def index(request):
     return HttpResponse('hello world')
@@ -33,6 +33,13 @@ class Bookmark_View_Set_Api(ModelViewSet):
     serializer_class = Bookmark_Serializer
 
 #-----------
+from rest_framework import serializers
+
+
+
+class Queryset_View_Api(ModelViewSet):
+    queryset = Post.objects.select_related('author').all()
+    serializer_class = Manager_Serializer
 
 
 

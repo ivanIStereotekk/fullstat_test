@@ -1,6 +1,7 @@
+from django.db.models import QuerySet
 from rest_framework import serializers
-from .models import Post,Person,Bookmark,Link
-
+from .models import Post,Person,Bookmark,Link,Manager_Set
+from django.db import models
 
 
 #-----
@@ -24,4 +25,9 @@ class Bookmark_Serializer(serializers.ModelSerializer):
 class Link_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Link
+        fields = "__all__"
+
+class Manager_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Manager_Set
         fields = "__all__"

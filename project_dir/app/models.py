@@ -68,3 +68,7 @@ class Link(models.Model):
     is_bookmarked = models.BooleanField(default=True,null=True,verbose_name='Is Bookmarked')
     def __str__(self):
         return str(self.pk)
+
+class Manager_Set(models.QuerySet):
+    def get_queryset(self):
+        pass
