@@ -33,7 +33,7 @@ class Post(models.Model):
     req_count = models.IntegerField(default=0,null=True,verbose_name='Reading counter')
     like = models.IntegerField(null=True,verbose_name='Like')
     disslike = models.IntegerField(null=True,verbose_name='Disslike')
-    slag = models.SlugField(null=True,max_length=90,verbose_name='Url-slag')
+    slug = models.SlugField(null=True,unique=True,db_index=True,max_length=90,verbose_name='Url-slug')
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='Created')
     bookmarks = models.ManyToManyField('Bookmark',through='Link',through_fields=('posts','bookmark'))
     rating = models.IntegerField(null=True,verbose_name='Rating Of publication')
@@ -43,7 +43,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
+        return reverse('post', kwargs={'post_slug': self.slug})
     class Meta:
         verbose_name = 'Publication or Post'
         verbose_name_plural = 'Publications'
@@ -54,9 +54,9 @@ class Bookmark(models.Model):
     user's bookmarks set linked model
     '''
     bookmark_name = models.TextField(null=True,max_length=80,verbose_name='Bookmark title')
-    person = models.ForeignKey(Person,on_delete=models.PROTECT,verbose_name='Bookmark')
+    person = models.ForeignKey(Person,on_delete=models.PROTECT,related_name='user',verbose_name='Bookmark')
     def __str__(self):
-        return str(self.person.pk)
+        return str(self.person)
 class Link(models.Model):
     '''
     Link model trough set of records bookmarks and posts - ManyToMany
@@ -72,3 +72,7 @@ class Link(models.Model):
 class Manager_Set(models.QuerySet):
     def get_queryset(self):
         pass
+    class Meta:
+        verbose_name = 'Related records'
+        verbose_name_plural = 'Related records\'s'
+        ordering = ['username']
