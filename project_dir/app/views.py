@@ -57,7 +57,7 @@ def post_by_slug(request,post_slug):
             serializer = Post_Serializer(post)
             return Response(serializer.data)
         except:
-            res = {'Empty Response':'No found such query'}
+            res = {'Empty Response':'No found such Queryset'}
             return Response(res)
 
 #--------GET USER'S BOOKMARK (QuerySet)
@@ -76,7 +76,7 @@ def bookmark_by_user_id(request,pk):
             serializer = Bookmark_Serializer(bookmark,many=True)
             return Response(serializer.data)
         except:
-            res = {'Empty Response':'No found such query'}
+            res = {'Empty Response':'No found such Queryset'}
             return Response(res)
 
 #--------GET POST'S BY - USER ID
@@ -95,7 +95,7 @@ def post_by_author_id(request,pk):
             serializer = Post_Serializer(post,many=True)
             return Response(serializer.data)
         except:
-            res = {'Empty Response':'No found such query'}
+            res = {'Empty Response':'No found such Queryset'}
             return Response(res)
 
 

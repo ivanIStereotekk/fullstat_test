@@ -6,6 +6,7 @@ class Post_Admin(admin.ModelAdmin):
     list_display = ('title','author','req_count','discription','created_at',)
     list_display_links = ('title','author')
     search_fields = ('content','title','author','created_at')
+    prepopulated_fields = {"slug":("title",)}
 
 admin.site.register(Post,Post_Admin)
 
