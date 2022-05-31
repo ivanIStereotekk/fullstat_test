@@ -1,11 +1,14 @@
-
+'''
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman
+'''
 from .models import *
-
 
 from rest_framework.viewsets import ModelViewSet
 
 from .serializers import Link_Serializer, Person_Serializer, Post_Serializer, Bookmark_Serializer
-
 
 from django.http import HttpResponse
 
@@ -13,36 +16,26 @@ from rest_framework.decorators import api_view
 
 from rest_framework.response import Response
 
+# Views classes and functions
 def index(request):
     return HttpResponse('hello world')
 
-
-
 # - ViewSet --PERSON
-'''
-Returns Person Object
-'''
+
 class Person_View_Set_Api(ModelViewSet):
     '''
     Person ORM model ViewSet
-
     '''
     queryset = Person.objects.all()
     serializer_class = Person_Serializer
-
-
 
 # - ViewSet - POST
 class Post_View_Set_Api(ModelViewSet):
     '''
         Post ORM model ViewSet
-
         '''
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
-
-
-
 
 # - ViewSet - LINK
 class Link_View_Set_Api(ModelViewSet):
