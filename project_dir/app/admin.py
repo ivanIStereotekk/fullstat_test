@@ -18,8 +18,10 @@ admin.site.register(Person,Person_Admin)
 
 class Bookmark_Admin(admin.ModelAdmin):
     list_display = ('person','bookmark_name',)
+    list_display_links = ('person',)
 admin.site.register(Bookmark,Bookmark_Admin)
 
 class Link_Admin(admin.ModelAdmin):
-    list_display = ('bookmark','is_bookmarked','posts',)
+    list_display = ('bookmark','is_bookmarked','post','estimation')
+    list_display_links = ('post', 'bookmark',)
 admin.site.register(Link,Link_Admin)

@@ -35,7 +35,6 @@ class Post(models.Model):
     disslike = models.IntegerField(null=True,verbose_name='Disslike')
     slug = models.SlugField(null=True,unique=True,db_index=True,max_length=90,verbose_name='Url-slug')
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='Created')
-    bookmarks = models.ManyToManyField('Bookmark',through='Link',through_fields=('posts','bookmark'))
     rating = models.IntegerField(null=True,verbose_name='Rating Of publication')
     def increment(self):
         self.req_count +=1
@@ -53,6 +52,7 @@ class Bookmark(models.Model):
     '''
     user's bookmarks set linked model
     '''
+    posts = models.ManyToManyField('Post',verbose_name='Subscribed posts')
     bookmark_name = models.TextField(null=True,max_length=80,verbose_name='Bookmark title')
     person = models.ForeignKey(Person,on_delete=models.PROTECT,related_name='user',verbose_name='Bookmark')
     def __str__(self):
@@ -62,8 +62,8 @@ class Link(models.Model):
     Link model trough set of records bookmarks and posts - ManyToMany
     '''
     CHOOSE = (('-0','Minus'),('0','Null'),('1','Plus One'))
-    posts = models.ForeignKey('Post',on_delete=models.CASCADE)
-    bookmark = models.ForeignKey('Bookmark',on_delete=models.CASCADE,verbose_name='link_bookmark')
+    bookmark = models.ForeignKey('Bookmark',null=True,on_delete=models.PROTECT)
+    post = models.ForeignKey('Post',null=True,on_delete=models.PROTECT)
     estimation = models.CharField(max_length=4,choices=CHOOSE,verbose_name='My estimation')
     is_bookmarked = models.BooleanField(default=True,null=True,verbose_name='Is Bookmarked')
     def __str__(self):

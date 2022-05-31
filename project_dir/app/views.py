@@ -88,7 +88,6 @@ def bookmark_by_user_id(request,pk):
     if request.method == 'GET':
         try:
             bookmark = Bookmark.objects.filter(person__pk=pk)
-            print(bookmark)
             serializer = Bookmark_Serializer(bookmark,many=True)
             return Response(serializer.data)
         except:
