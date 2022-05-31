@@ -4,6 +4,8 @@ ivan Goncharov
 ivan.stereotekk@gmail.com
 telegram: @EwanPotterman
 '''
+from rest_framework.generics import ListAPIView
+
 from .models import *
 
 from rest_framework.viewsets import ModelViewSet
@@ -54,7 +56,17 @@ class Bookmark_View_Set_Api(ModelViewSet):
     queryset = Bookmark.objects.all()
     serializer_class = Bookmark_Serializer
 
-#-----------POSTS BY SLUG
+# FILTERING VIEWSET's
+class Latest_View_Set_Api(ModelViewSet):
+    '''
+        Latest Post's ViewSet
+        '''
+    queryset = Post.objects.order_by('-created_at')
+    serializer_class = Post_Serializer
+
+
+
+#-----------GET POSTS BY SLUG
 
 
 @api_view(['GET'])
@@ -94,7 +106,7 @@ def bookmark_by_user_id(request,pk):
             res = {'Empty Response':'No found such Queryset'}
             return Response(res)
 
-#--------GET POST'S BY - USER ID
+#GET POST'S BY - USER.ID
 @api_view(['GET'])
 def post_by_author_id(request,pk):
     '''
@@ -113,7 +125,7 @@ def post_by_author_id(request,pk):
             res = {'Empty Response':'No found such Queryset'}
             return Response(res)
 
-
+# GET MY BOOKMARKS BY USER.ID
 
 
 

@@ -4,7 +4,7 @@ from django.db import models
 #---ORM Models:
 class Person(models.Model):
     '''
-    Person who is ordinary service user
+    "Person" who is ordinary service user
     '''
     username = models.TextField(max_length=100,verbose_name='Username')
     email = models.EmailField(null=True, verbose_name='Email')
@@ -23,7 +23,7 @@ class Person(models.Model):
 
 class Post(models.Model):
     '''
-    POSTS of published posts
+    POST'S of published posts
     '''
     uuid_tag = models.UUIDField(primary_key=False,default=uuid.uuid4,null=True)
     title = models.TextField(null=True,max_length=80,verbose_name='Title of Article')
@@ -50,7 +50,7 @@ class Post(models.Model):
 
 class Bookmark(models.Model):
     '''
-    user's bookmarks set linked model
+    Person's(User's) bookmarks set linked model
     '''
     posts = models.ManyToManyField('Post',verbose_name='Subscribed posts')
     bookmark_name = models.TextField(null=True,max_length=80,verbose_name='Bookmark title')
@@ -59,7 +59,7 @@ class Bookmark(models.Model):
         return str(self.person)
 class Link(models.Model):
     '''
-    Link model trough set of records bookmarks and posts - ManyToMany
+    "Link" model which gives to user(person) some options like
     '''
     CHOOSE = (('-0','Minus'),('0','Null'),('1','Plus One'))
     bookmark = models.ForeignKey('Bookmark',null=True,on_delete=models.PROTECT)
