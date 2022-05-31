@@ -23,20 +23,41 @@ def index(request):
 Returns Person Object
 '''
 class Person_View_Set_Api(ModelViewSet):
+    '''
+    Person ORM model ViewSet
+
+    '''
     queryset = Person.objects.all()
     serializer_class = Person_Serializer
 
+
+
 # - ViewSet - POST
 class Post_View_Set_Api(ModelViewSet):
+    '''
+        Post ORM model ViewSet
+
+        '''
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
 
+
+
+
 # - ViewSet - LINK
 class Link_View_Set_Api(ModelViewSet):
+    '''
+        Link ORM model ViewSet
+
+        '''
     queryset = Link.objects.all()
     serializer_class = Link_Serializer
 # - ViewSet - BOOKMARK
 class Bookmark_View_Set_Api(ModelViewSet):
+    '''
+        Bookmark ORM model ViewSet
+
+        '''
     queryset = Bookmark.objects.all()
     serializer_class = Bookmark_Serializer
 
@@ -47,7 +68,7 @@ class Bookmark_View_Set_Api(ModelViewSet):
 def post_by_slug(request,post_slug):
     '''
     Get by slug (string) - http://127.0.0.1:8000/detail/slug_adress_one/
-    :param request:
+    :param request,increment():
     :param post_slug:
     :return:
     '''
@@ -55,6 +76,8 @@ def post_by_slug(request,post_slug):
         try:
             post = Post.objects.get(slug=post_slug)
             serializer = Post_Serializer(post)
+            post.increment()
+            post.save()
             return Response(serializer.data)
         except:
             res = {'Empty Response':'No found such Queryset'}

@@ -15,6 +15,8 @@ router = routers.SimpleRouter()
 
 '''
 
+
+
 router.register(r'persons',Person_View_Set_Api)
 router.register(r'posts',Post_View_Set_Api)
 router.register(r'bookmarks',Bookmark_View_Set_Api)
