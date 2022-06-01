@@ -72,7 +72,6 @@ class Latest_View_Set_Api(ModelViewSet):
     serializer_class = Post_Serializer
 
 # ---- GET POST BY SLUG URL
-
 class Detail_Post_View(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
