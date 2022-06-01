@@ -1,4 +1,9 @@
-
+'''
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman
+'''
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

@@ -6,7 +6,6 @@ telegram: @EwanPotterman
 '''
 from django.urls import path
 from .views import*
-from django.views.decorators.cache import cache_page
 from rest_framework import routers
 '''Class - SimpleRouter - and Registred_Routes'''
 router = routers.SimpleRouter()
@@ -37,6 +36,7 @@ urlpatterns = [
     path('detail/<str:post_slug>/',post_by_slug,name='post'),
     path('user_bookmarks/<int:pk>/',bookmark_by_user_id,name='subscriptions'),
     path('author/<int:pk>/',post_by_author_id,name='author_posts'),
+
 
     ]
 urlpatterns += router.urls

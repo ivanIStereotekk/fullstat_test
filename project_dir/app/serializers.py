@@ -1,5 +1,11 @@
-
+'''
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman
+'''
 from rest_framework import serializers
+
 from .models import Post,Person,Bookmark,Link
 
 

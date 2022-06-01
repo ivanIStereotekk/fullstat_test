@@ -1,82 +1,88 @@
-'''
+"""
 Author:
 ivan Goncharov
 ivan.stereotekk@gmail.com
 telegram: @EwanPotterman
-'''
-from rest_framework.generics import ListAPIView
+"""
 
-from .models import *
+from .models import Person, Post, Bookmark, Link
 
 from rest_framework.viewsets import ModelViewSet
 
 from .serializers import Link_Serializer, Person_Serializer, Post_Serializer, Bookmark_Serializer
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 from rest_framework.decorators import api_view
 
 from rest_framework.response import Response
 
+
 # Views classes and functions
 def index(request):
-    return HttpResponse('hello world')
+    return HttpResponse(request.data, 'hello world')
+
 
 # - ViewSet --PERSON
 
 class Person_View_Set_Api(ModelViewSet):
-    '''
+    """
     Person ORM model ViewSet
-    '''
+    """
     queryset = Person.objects.all()
     serializer_class = Person_Serializer
 
+
 # - ViewSet - POST
 class Post_View_Set_Api(ModelViewSet):
-    '''
+    """
         Post ORM model ViewSet
-        '''
+        """
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
 
+
 # - ViewSet - LINK
 class Link_View_Set_Api(ModelViewSet):
-    '''
+    """
         Link ORM model ViewSet
 
-        '''
+        """
     queryset = Link.objects.all()
     serializer_class = Link_Serializer
+
+
 # - ViewSet - BOOKMARK
 class Bookmark_View_Set_Api(ModelViewSet):
-    '''
+    """
         Bookmark ORM model ViewSet
 
-        '''
+        """
     queryset = Bookmark.objects.all()
     serializer_class = Bookmark_Serializer
 
-# FILTERING VIEWSET's
+
+# FILTERING VIEW SET's
 class Latest_View_Set_Api(ModelViewSet):
-    '''
+    """
         Latest Post's ViewSet
-        '''
+        """
     queryset = Post.objects.order_by('-created_at')
     serializer_class = Post_Serializer
 
 
-
-#-----------GET POSTS BY SLUG
+# -----------GET POSTS BY SLUG
 
 
 @api_view(['GET'])
-def post_by_slug(request,post_slug):
-    '''
+def post_by_slug(request, post_slug):
+    """
     Get by slug (string) - http://127.0.0.1:8000/detail/slug_adress_one/
-    :param request,increment():
+    :param request:
+    :param increment():
     :param post_slug:
     :return:
-    '''
+    """
     if request.method == 'GET':
         try:
             post = Post.objects.get(slug=post_slug)
@@ -84,31 +90,33 @@ def post_by_slug(request,post_slug):
             post.increment()
             post.save()
             return Response(serializer.data)
-        except:
-            res = {'Empty Response':'No found such Queryset'}
-            return Response(res)
+        except Exception:
+            raise Http404
 
-#--------GET USER'S BOOKMARK (QuerySet)
+
+# --------GET USER'S BOOKMARK (QuerySet)
 @api_view(['GET'])
-def bookmark_by_user_id(request,pk):
-    '''
-    Get bookmark by user_pk http://127.0.0.1:8000/subscriptions/1/
+def bookmark_by_user_id(request, pk):
+    """
+    Get bookmark by user_pk http://127.0.0.1:8000/user_bookmarks/1/
     :param request:
     :param pk:
     :return:
-    '''
+    """
     if request.method == 'GET':
         try:
             bookmark = Bookmark.objects.filter(person__pk=pk)
-            serializer = Bookmark_Serializer(bookmark,many=True)
+            if bookmark[0] is None:
+                raise Http404
+            serializer = Bookmark_Serializer(bookmark, many=True)
             return Response(serializer.data)
-        except:
-            res = {'Empty Response':'No found such Queryset'}
-            return Response(res)
+        except Exception:
+            raise Http404
 
-#GET POST'S BY - USER.ID
+
+# GET POST'S BY - USER.ID
 @api_view(['GET'])
-def post_by_author_id(request,pk):
+def post_by_author_id(request, pk):
     '''
     Get Queryset by author_id - http://127.0.0.1:8000/author/1/
     :param request:
@@ -118,24 +126,11 @@ def post_by_author_id(request,pk):
     if request.method == 'GET':
         try:
             post = Post.objects.filter(author__pk=pk)
-            print(post)
-            serializer = Post_Serializer(post,many=True)
-            return Response(serializer.data)
-        except:
-            res = {'Empty Response':'No found such Queryset'}
-            return Response(res)
-
-# GET MY BOOKMARKS BY USER.ID
-
-
-
-
-
-
-
-
-
-
-
+            if post[0] is None:
+                raise Http404
+            serializer = Post_Serializer(post, many=True)
+        except Exception:
+            raise Http404
+        return Response(serializer.data)
 
 
