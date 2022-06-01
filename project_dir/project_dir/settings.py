@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
+    'outer.apps.OuterConfig',
     'rest_framework',
     'corsheaders',
     'rest_framework_word_filter',
@@ -89,6 +90,8 @@ DATABASES = {
     }
 }
 '''
+
+
 # - postgres via psycopg
 
 DATABASES = {
@@ -99,10 +102,16 @@ DATABASES = {
 'PASSWORD': 'superpassword',
 'HOST': 'localhost',
 'PORT': '5432'
-}
+},
+
 }
 
-
+# Celery Configuration Options
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 
 
