@@ -9,7 +9,13 @@ from .models import Person, Post, Bookmark, Link
 
 from rest_framework.viewsets import ModelViewSet
 
-from .serializers import Link_Serializer, Person_Serializer, Post_Serializer, Bookmark_Serializer
+from rest_framework.generics import RetrieveAPIView,ListAPIView
+
+from .serializers import Link_Serializer, \
+    Person_Serializer, \
+    Post_Serializer, \
+    Bookmark_Serializer, \
+    Post_Detail_Serializer
 
 from django.http import HttpResponse, Http404
 
@@ -41,26 +47,21 @@ class Post_View_Set_Api(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
 
-
 # - ViewSet - LINK
 class Link_View_Set_Api(ModelViewSet):
     """
         Link ORM model ViewSet
-
         """
     queryset = Link.objects.all()
     serializer_class = Link_Serializer
-
 
 # - ViewSet - BOOKMARK
 class Bookmark_View_Set_Api(ModelViewSet):
     """
         Bookmark ORM model ViewSet
-
         """
     queryset = Bookmark.objects.all()
     serializer_class = Bookmark_Serializer
-
 
 # FILTERING VIEW SET's
 class Latest_View_Set_Api(ModelViewSet):
@@ -70,31 +71,15 @@ class Latest_View_Set_Api(ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = Post_Serializer
 
+# ---- GET POST BY SLUG URL
 
-# -----------GET POSTS BY SLUG
+class Detail_Post_View(RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = Post_Serializer
+    lookup_field = 'slug'
 
+# --- GET USER'S BOOKMARK (QuerySet)
 
-@api_view(['GET'])
-def post_by_slug(request, post_slug):
-    """
-    Get by slug (string) - http://127.0.0.1:8000/detail/slug_adress_one/
-    :param request:
-    :param increment():
-    :param post_slug:
-    :return:
-    """
-    if request.method == 'GET':
-        try:
-            post = Post.objects.get(slug=post_slug)
-            serializer = Post_Serializer(post)
-            post.increment()
-            post.save()
-            return Response(serializer.data)
-        except Exception:
-            raise Http404
-
-
-# --------GET USER'S BOOKMARK (QuerySet)
 @api_view(['GET'])
 def bookmark_by_user_id(request, pk):
     """

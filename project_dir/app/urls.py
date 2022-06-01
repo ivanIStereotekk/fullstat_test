@@ -40,13 +40,18 @@ router.register(r'links',Link_View_Set_Api)
 router.register(r'latest',Latest_View_Set_Api)
 
 
+
+
 '''URLS'''
 urlpatterns = [
     path('index/',index),
-    path('detail/<str:post_slug>/',post_by_slug,name='post'),
     path('user_bookmarks/<int:pk>/',bookmark_by_user_id,name='subscriptions'),
     path('author/<int:pk>/',post_by_author_id,name='author_posts'),
+    path('one/<str:slug>/',Detail_Post_View.as_view())
 
 
     ]
 urlpatterns += router.urls
+
+
+
