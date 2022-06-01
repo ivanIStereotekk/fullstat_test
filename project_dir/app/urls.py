@@ -16,6 +16,9 @@ router = routers.SimpleRouter()
 --http://127.0.0.1:8000/bookmark/...int
 --http://127.0.0.1:8000/posts/...int
 
+latest:
+http://127.0.0.1:8000/latest/
+
 paginator: 
 http://127.0.0.1:8000/posts/?limit=4
 
