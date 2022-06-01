@@ -15,12 +15,19 @@ router = routers.SimpleRouter()
 --http://127.0.0.1:8000/link/...int
 --http://127.0.0.1:8000/bookmark/...int
 --http://127.0.0.1:8000/posts/...int
+
 paginator: 
 http://127.0.0.1:8000/posts/?limit=4
+
 get post by description slug:
 http://127.0.0.1:8000/detail/my_post_name/
+
 bookmarks by user id:
 http://127.0.0.1:8000/user_bookmarks/3/
+
+get post by author id:
+http://127.0.0.1:8000/author/1/
+
 '''
 
 router.register(r'persons',Person_View_Set_Api)
