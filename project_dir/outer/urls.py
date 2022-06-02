@@ -6,7 +6,7 @@ telegram: @EwanPotterman
 '''
 from django.urls import path
 from .views import Get_JsonB_View
-from rest_framework import routers
+
 
 
 urlpatterns = [

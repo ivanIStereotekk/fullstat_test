@@ -1,2 +1,9 @@
 docker pull postgres alpine
 docker run --name django_sql -p 5432:5432 -e POSTGRES_PASSWORD=superpassword -e POSTGRES_DB=my_db -v /Users/user/Desktop/fullstats_test/database:/var/lib/postgresql/database -d postgres:alpine
+
+
+celery -A project_dir beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+
+
+celery -A project_dir beat -l INFO
