@@ -1,14 +1,17 @@
 from django.core.mail import send_mail
 
 
-users_mail = 'ivan.stereotekk@gmail.com'
+mail_to = 'ivan.stereotekk@gmail.com'
+text = None
+subject =None
+sender = 'capitan.django@mail.ru'
 
-def send(users_mail):
+def send(subject,text,sender,mail_to):
     send_mail(
-        'Developers happiness!',
-        'You will get a much serotonin when you will see this letter.',
-        'capitan.django@mail.ru',
-        [users_mail],
+        subject,
+        text,
+        sender,
+        [mail_to],
         fail_silently=False,
     )
     return 'Sent letter successfully!'
