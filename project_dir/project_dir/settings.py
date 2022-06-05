@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'djoser',
+    'rest_framework_swagger',
+    'drf_yasg',
+
 
 ]
 
