@@ -1,9 +1,34 @@
 docker pull postgres alpine
+
 docker run --name django_sql -p 5432:5432 -e POSTGRES_PASSWORD=superpassword -e POSTGRES_DB=my_db -v /Users/user/Desktop/fullstats_test/database:/var/lib/postgresql/database -d postgres:alpine
 
 
-celery -A project_dir beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+docker run -d -p 6379:6379 redis
+
+
+Запуск Воркера в дириктории где лежит  - celery.py - : celery -A project_dir worker -l INFO
 
 
 
-celery -A project_dir beat -l INFO
+Запуск кронтаб бит - :   celery -A project_dir beat -l INFO
+
+
+
+
+app.conf.beat_schedule = {
+    # Executes every hour JSON RECIEVER :
+    'get-data-json-each-hour': {
+        'task': 'get_dataset_outer',
+        'schedule': crontab(minute='*/1'),
+        'args': (16, 16),
+    },
+}
+
+app.conf.beat_schedule = {
+    # Executes every hour :
+    'Say_HELLO_EACH_TIME': {
+        'task': 'say_hello',
+        'schedule': crontab(minute='*/1'),
+        'args': (16, 16),
+    },
+}

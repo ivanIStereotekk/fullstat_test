@@ -9,7 +9,7 @@ from .models import Person, Post, Bookmark, Link
 
 from rest_framework.viewsets import ModelViewSet
 
-from rest_framework.generics import RetrieveAPIView,ListAPIView
+from rest_framework.generics import RetrieveAPIView
 
 from .serializers import Link_Serializer, \
     Person_Serializer, \
@@ -26,7 +26,27 @@ from rest_framework.response import Response
 
 # Views classes and functions
 def index(request):
-    return HttpResponse(request.data, 'hello world')
+    list = ("<h2>Registred routes:</h2>","""
+<br>--http://127.0.0.1:8000/persons/...int
+<br>--http://127.0.0.1:8000/link/...int
+<br>--http://127.0.0.1:8000/bookmark/...int
+<br>--http://127.0.0.1:8000/posts/...int
+
+<br>latest:
+<br>http://127.0.0.1:8000/latest/
+
+<br>paginator: 
+<br>http://127.0.0.1:8000/posts/?limit=4
+
+<br>get post by description slug:
+<br>http://127.0.0.1:8000/detail/my_post_name/
+
+<br>bookmarks by user id:
+<br>http://127.0.0.1:8000/user_bookmarks/3/
+
+<br>get post by author id:
+<br>http://127.0.0.1:8000/author/1/""")
+    return HttpResponse(list)
 
 
 # - ViewSet --PERSON

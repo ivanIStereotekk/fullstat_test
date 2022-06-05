@@ -6,6 +6,7 @@ telegram: @EwanPotterman
 '''
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,12 +20,9 @@ SECRET_KEY = 'django-insecure-dydybzxin354x^@cybd9qb+r-&io*n=+25mbt=*8^352n6l3$i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITE_LIST = False
-CORS_ORIGIN_REGEX_WHITE_LIST = []
-#CORS_URLS_REGEX = r'^/api/.*$'
+
+
 
 
 
@@ -94,7 +92,7 @@ DATABASES = {
 '''
 
 
-# - postgres via psycopg
+# - postgres here
 
 DATABASES = {
 'default': {
@@ -105,26 +103,27 @@ DATABASES = {
 'HOST': 'localhost',
 'PORT': '5432'
 },
-
-
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'LOCATION': 'redis://127.0.0.1:6379',
     }
 }
 
 # Celery Configuration Options
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_ACCEPT_CONTENT = ['json']
+#CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_CACHE_BACKEND = 'default'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+#CELERY_IMPORTS = ('tasks', )
+CELERY_RESULT_BACKEND = 'django-db'
 
 
 # Password validation
@@ -151,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -170,7 +169,47 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+
+#-------------------EMAIL ----
+"""
+This if/else thing will implement debug/backend email sending regime.
+When it's debug you'll see letters into console
+"""
+#if DEBUG:
+    #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#else:
+   # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#-------------
+DEFAULT_FROM_EMAIL = 'capitan.django@mail.ru'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'capitan.django@mail.ru'
+EMAIL_HOST_PASSWORD = 'bJWDt1rMWVr9gTWhzD8C'
+
+
+
+
+# --- admin email
+ADMINS = (('Ivan', 'ivan.stereotekk@gmail.com'),)
+MANAGERS = ADMINS
+
+
+
+#RESTFRAMEWORK-SETTINGS
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 1
+    'PAGE_SIZE': 3
 }
+#CORS-HEADERS
+
+ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITE_LIST = False
+CORS_ORIGIN_REGEX_WHITE_LIST = []
+#CORS_URLS_REGEX = r'^/api/.*$'

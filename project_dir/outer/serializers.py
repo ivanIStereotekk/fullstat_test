@@ -6,13 +6,12 @@ telegram: @EwanPotterman
 '''
 from rest_framework import serializers
 
-from .models import Request_JSONB
+from .models import Request_JSONB_Model
 
 
 
 #-----
-class Request_JSON_Serializer(serializers.ModelSerializer):
+class JSON_Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Request_JSONB
+        model = Request_JSONB_Model
         fields = "__all__"
-        depth = 2
