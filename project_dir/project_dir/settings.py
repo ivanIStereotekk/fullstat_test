@@ -43,8 +43,13 @@ INSTALLED_APPS = [
     'rest_framework_word_filter',
     'django_celery_results',
     'django_celery_beat',
+    'djoser',
 
 ]
+
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
