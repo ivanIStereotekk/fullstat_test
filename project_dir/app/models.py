@@ -81,8 +81,8 @@ class Link(models.Model):
     post = models.ForeignKey('Post', null=True, on_delete=models.PROTECT)
     estimation = models.CharField(max_length=4, choices=CHOOSE, verbose_name='My estimation')
     is_bookmarked = models.BooleanField(default=True, null=True, verbose_name='Is Bookmarked')
-    like = models.IntegerField(null=True, verbose_name='Like')
-    disslike = models.IntegerField(null=True, verbose_name='Disslike')
+    like = models.BooleanField(default=False, verbose_name='Like')
+    disslike = models.BooleanField(default=False, verbose_name='Disslike')
 
     def __str__(self):
         return str(self.pk)
