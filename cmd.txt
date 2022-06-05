@@ -15,20 +15,3 @@ docker run -d -p 6379:6379 redis
 
 
 
-app.conf.beat_schedule = {
-    # Executes every hour JSON RECIEVER :
-    'get-data-json-each-hour': {
-        'task': 'get_dataset_outer',
-        'schedule': crontab(minute='*/1'),
-        'args': (16, 16),
-    },
-}
-
-app.conf.beat_schedule = {
-    # Executes every hour :
-    'Say_HELLO_EACH_TIME': {
-        'task': 'say_hello',
-        'schedule': crontab(minute='*/1'),
-        'args': (16, 16),
-    },
-}
