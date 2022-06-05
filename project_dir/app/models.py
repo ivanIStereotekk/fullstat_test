@@ -8,20 +8,18 @@ telegram: @EwanPotterman
 import uuid
 from django.urls import reverse
 from django.db import models
-
+from django.contrib.auth.models import User
 
 # ---ORM Models:
 class Person(models.Model):
     """
-    "Person" who is ordinary service user
+    "Person" who is ordinary service user - Django Authentication System
     """
-    username = models.TextField(max_length=100, verbose_name='Username')
-    email = models.EmailField(null=True, verbose_name='Email')
-    password = models.TextField(null=True, verbose_name='Password')
-    token = models.TextField(max_length=555, verbose_name='JWT')
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE,verbose_name='User')
+    additional = models.TextField(max_length=555,null=True, verbose_name='Additional Field')
 
     def __str__(self):
-        return self.username
+        return self.user
 
     def get_absolute_url(self):
         return reverse('person_id', kwargs={'pk': self.pk})
@@ -29,7 +27,7 @@ class Person(models.Model):
     class Meta:
         verbose_name = 'Registred User'
         verbose_name_plural = 'Registred User\'s'
-        ordering = ['username']
+        ordering = ['user',]
 
 
 class Post(models.Model):
@@ -70,10 +68,10 @@ class Bookmark(models.Model):
     """
     posts = models.ManyToManyField('Post', verbose_name='Subscribed posts')
     bookmark_name = models.TextField(null=True, max_length=80, verbose_name='Bookmark title')
-    person = models.ForeignKey(Person, on_delete=models.PROTECT, related_name='user', verbose_name='Bookmark')
+    user = models.ForeignKey(Person, null=True, on_delete=models.PROTECT, related_name='person', verbose_name='Bookmark')
 
     def __str__(self):
-        return str(self.person)
+        return str(self.user)
 
 
 class Link(models.Model):

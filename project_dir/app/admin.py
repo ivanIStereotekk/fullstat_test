@@ -18,14 +18,14 @@ class Post_Admin(admin.ModelAdmin):
 admin.site.register(Post,Post_Admin)
 
 class Person_Admin(admin.ModelAdmin):
-    list_display = ('username','email','password','token')
-    list_display_links = ('username','email',)
-    search_fields = ('username','email',)
+    list_display = ('user',)
+    list_display_links = ('user',)
+    search_fields = ('user',)
 admin.site.register(Person,Person_Admin)
 
 class Bookmark_Admin(admin.ModelAdmin):
-    list_display = ('person','bookmark_name',)
-    list_display_links = ('person',)
+    list_display = ('user','bookmark_name',)
+    list_display_links = ('user',)
 admin.site.register(Bookmark,Bookmark_Admin)
 
 class Link_Admin(admin.ModelAdmin):
