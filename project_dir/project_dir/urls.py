@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/',include('app.urls')),
     path('outer_service/',include('outer.urls')),
     path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 
 ]
 

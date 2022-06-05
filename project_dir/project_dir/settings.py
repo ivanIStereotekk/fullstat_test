@@ -130,7 +130,6 @@ CELERY_CACHE_BACKEND = 'default'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-#CELERY_IMPORTS = ('tasks', )
 CELERY_RESULT_BACKEND = 'django-db'
 
 
@@ -212,8 +211,18 @@ MANAGERS = ADMINS
 #RESTFRAMEWORK-SETTINGS
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 3
+    'PAGE_SIZE': 3,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+    ),
+
 }
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+
 #CORS-HEADERS
 
 ALLOWED_HOSTS = []
