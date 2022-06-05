@@ -1,3 +1,9 @@
+"""
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman
+"""
 
 from project_dir.celery import app
 from outer.mailer import send
@@ -35,6 +41,10 @@ def get_payload(items):
 
 @app.task
 def send_letter():
+    """
+    You may attach as arguments on Django-admin panel letters detail and text of letter.
+    :return:
+    """
     #----------
     mail_to = 'ivan.stereotekk@gmail.com'
     text = 'Много спама я вам пришлю!'

@@ -1,3 +1,10 @@
+"""
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman
+"""
+
 from django.contrib import admin
 
 from .models  import Post ,Person, Link, Bookmark

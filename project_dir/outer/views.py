@@ -1,3 +1,9 @@
+"""
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman
+"""
 
 from .serializers import JSON_Serializer
 

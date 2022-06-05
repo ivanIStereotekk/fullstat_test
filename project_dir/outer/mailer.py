@@ -1,3 +1,10 @@
+"""
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman
+"""
+
 from django.core.mail import send_mail
 
 
