@@ -5,6 +5,7 @@ docker run --name django_sql -p 5432:5432 -e POSTGRES_PASSWORD=superpassword -e 
 
 docker run -d -p 6379:6379 redis
 
+Важно ! не написано в книгах и на заборе... Сельдирей хочет такую установку и будет успех !    pip install -U "celery[redis]"
 
 Запуск Воркера в дириктории где лежит  - celery.py - : celery -A project_dir worker -l INFO
 

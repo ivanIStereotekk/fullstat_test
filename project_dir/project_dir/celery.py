@@ -3,10 +3,6 @@ import os
 from celery import Celery
 
 
-from celery.schedules import crontab
-
-#   pip install -U "celery[redis]"
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_dir.settings')
 
 
