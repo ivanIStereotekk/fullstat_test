@@ -29,6 +29,6 @@ class Bookmark_Admin(admin.ModelAdmin):
 admin.site.register(Bookmark,Bookmark_Admin)
 
 class Link_Admin(admin.ModelAdmin):
-    list_display = ('bookmark','is_bookmarked','post','estimation')
-    list_display_links = ('post', 'bookmark',)
+    list_display = ('bookmark','is_bookmarked','post','estimation','like','disslike',)
+    list_display_links = ('post', 'bookmark','like','disslike',)
 admin.site.register(Link,Link_Admin)

@@ -40,8 +40,6 @@ class Post(models.Model):
     discription = models.TextField(null=True, max_length=250, verbose_name='Short description')
     content = models.TextField(verbose_name='Text body')
     req_count = models.IntegerField(default=0, null=True, verbose_name='Reading counter')
-    like = models.IntegerField(null=True, verbose_name='Like')
-    disslike = models.IntegerField(null=True, verbose_name='Disslike')
     slug = models.SlugField(null=True, unique=True, db_index=True, max_length=90, verbose_name='Url-slug')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     rating = models.IntegerField(null=True, verbose_name='Rating Of publication')
@@ -83,6 +81,8 @@ class Link(models.Model):
     post = models.ForeignKey('Post', null=True, on_delete=models.PROTECT)
     estimation = models.CharField(max_length=4, choices=CHOOSE, verbose_name='My estimation')
     is_bookmarked = models.BooleanField(default=True, null=True, verbose_name='Is Bookmarked')
+    like = models.IntegerField(null=True, verbose_name='Like')
+    disslike = models.IntegerField(null=True, verbose_name='Disslike')
 
     def __str__(self):
         return str(self.pk)
