@@ -15,7 +15,7 @@ class Person(models.Model):
     """
     "Person" who is ordinary service user - Django Authentication System
     """
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE,verbose_name='User')
+    user = models.OneToOneField(User,on_delete=models.CASCADE,verbose_name='User')
     additional = models.TextField(max_length=555,null=True, verbose_name='Additional Field')
 
     def __str__(self):
@@ -35,12 +35,12 @@ class Post(models.Model):
     POST'S of published posts
     """
     uuid_tag = models.UUIDField(primary_key=False, default=uuid.uuid4, null=True)
-    title = models.TextField(null=True, max_length=80, verbose_name='Title of Article')
-    author = models.ForeignKey(Person, on_delete=models.PROTECT, null=True, verbose_name='Author')
+    title = models.TextField(max_length=80, verbose_name='Title of Article')
+    author = models.ForeignKey(User,models.SET_NULL,blank=True,null=True, verbose_name='Author')
     discription = models.TextField(null=True, max_length=250, verbose_name='Short description')
     content = models.TextField(verbose_name='Text body')
     req_count = models.IntegerField(default=0, null=True, verbose_name='Reading counter')
-    slug = models.SlugField(null=True, unique=True, db_index=True, max_length=90, verbose_name='Url-slug')
+    slug = models.SlugField(default=None, unique=True, db_index=True, max_length=90, verbose_name='Url-slug')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     rating = models.IntegerField(null=True, verbose_name='Rating Of publication')
 
@@ -65,11 +65,11 @@ class Bookmark(models.Model):
     Person's(User's) bookmarks set linked model
     """
     posts = models.ManyToManyField('Post', verbose_name='Subscribed posts')
-    bookmark_name = models.TextField(null=True, max_length=80, verbose_name='Bookmark title')
-    user = models.ForeignKey(Person, null=True, on_delete=models.PROTECT, related_name='person', verbose_name='Bookmark')
+    bookmark_name = models.TextField(max_length=80, verbose_name='Bookmark title')
+    username = models.ForeignKey(User, models.SET_NULL,blank=True,null=True, related_name='subscriber', verbose_name='Bookmark')
 
     def __str__(self):
-        return str(self.user)
+        return str(self.username)
 
 
 class Link(models.Model):
@@ -77,10 +77,9 @@ class Link(models.Model):
     "Link" model which gives to user(person) some options like
     """
     CHOOSE = (('-0', 'Minus'), ('0', 'Null'), ('1', 'Plus One'))
-    bookmark = models.ForeignKey('Bookmark', null=True, on_delete=models.PROTECT)
-    post = models.ForeignKey('Post', null=True, on_delete=models.PROTECT)
+    post = models.ForeignKey(Post,on_delete=models.PROTECT,verbose_name='Publication')
     estimation = models.CharField(max_length=4, choices=CHOOSE, verbose_name='My estimation')
-    is_bookmarked = models.BooleanField(default=True, null=True, verbose_name='Is Bookmarked')
+    is_bookmarked = models.BooleanField(default=False,verbose_name='Is Bookmarked')
     like = models.BooleanField(default=False, verbose_name='Like')
     disslike = models.BooleanField(default=False, verbose_name='Disslike')
 

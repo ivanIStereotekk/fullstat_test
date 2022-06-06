@@ -19,38 +19,23 @@ from .serializers import Link_Serializer, \
 
 from django.http import HttpResponse, Http404
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+
+from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from rest_framework.response import Response
 
 
+
+
 # Views classes and functions
 def index(request):
-    list = ("<h2>Registred routes:</h2>","""
-<br>--http://127.0.0.1:8000/persons/...int
-<br>--http://127.0.0.1:8000/link/...int
-<br>--http://127.0.0.1:8000/bookmark/...int
-<br>--http://127.0.0.1:8000/posts/...int
-
-<br>latest:
-<br>http://127.0.0.1:8000/latest/
-
-<br>paginator: 
-<br>http://127.0.0.1:8000/posts/?limit=4
-
-<br>get post by description slug:
-<br>http://127.0.0.1:8000/detail/my_post_name/
-
-<br>bookmarks by user id:
-<br>http://127.0.0.1:8000/user_bookmarks/3/
-
-<br>get post by author id:
-<br>http://127.0.0.1:8000/author/1/""")
-    return HttpResponse(list)
+    hello = "Go to swagger!"
+    return HttpResponse(hello)
 
 
 # - ViewSet --PERSON
-
+@permission_classes((IsAuthenticated,))
 class Person_View_Set_Api(ModelViewSet):
     """
     Person ORM model ViewSet
@@ -58,7 +43,7 @@ class Person_View_Set_Api(ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = Person_Serializer
 
-
+@permission_classes((AllowAny,))
 # - ViewSet - POST
 class Post_View_Set_Api(ModelViewSet):
     """
@@ -68,6 +53,7 @@ class Post_View_Set_Api(ModelViewSet):
     serializer_class = Post_Serializer
 
 # - ViewSet - LINK
+@permission_classes((IsAuthenticated,))
 class Link_View_Set_Api(ModelViewSet):
     """
         Link ORM model ViewSet
@@ -76,6 +62,7 @@ class Link_View_Set_Api(ModelViewSet):
     serializer_class = Link_Serializer
 
 # - ViewSet - BOOKMARK
+@permission_classes((IsAuthenticated,))
 class Bookmark_View_Set_Api(ModelViewSet):
     """
         Bookmark ORM model ViewSet
@@ -84,6 +71,7 @@ class Bookmark_View_Set_Api(ModelViewSet):
     serializer_class = Bookmark_Serializer
 
 # FILTERING VIEW SET's
+@permission_classes((AllowAny,))
 class Latest_View_Set_Api(ModelViewSet):
     """
         Latest Post's ViewSet
@@ -92,6 +80,7 @@ class Latest_View_Set_Api(ModelViewSet):
     serializer_class = Post_Serializer
 
 # ---- GET POST BY SLUG URL
+@permission_classes((AllowAny,))
 class Detail_Post_View(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
@@ -100,6 +89,7 @@ class Detail_Post_View(RetrieveAPIView):
 # --- GET USER'S BOOKMARK (QuerySet)
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def bookmark_by_user_id(request, pk):
     """
     Get bookmark by user_pk http://127.0.0.1:8000/user_bookmarks/1/
@@ -119,7 +109,9 @@ def bookmark_by_user_id(request, pk):
 
 
 # GET POST'S BY - USER.ID
+
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def post_by_author_id(request, pk):
     '''
     Get Queryset by author_id - http://127.0.0.1:8000/author/1/

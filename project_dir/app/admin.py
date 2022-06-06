@@ -24,11 +24,11 @@ class Person_Admin(admin.ModelAdmin):
 admin.site.register(Person,Person_Admin)
 
 class Bookmark_Admin(admin.ModelAdmin):
-    list_display = ('user','bookmark_name',)
-    list_display_links = ('user',)
+    list_display = ('username','bookmark_name',)
+    list_display_links = ('username',)
 admin.site.register(Bookmark,Bookmark_Admin)
 
 class Link_Admin(admin.ModelAdmin):
-    list_display = ('bookmark','is_bookmarked','post','estimation','like','disslike',)
-    list_display_links = ('post', 'bookmark','like','disslike',)
+    list_display = ('is_bookmarked','post','estimation','like','disslike',)
+    list_display_links = ('post','like','disslike',)
 admin.site.register(Link,Link_Admin)
