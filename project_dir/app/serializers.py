@@ -20,7 +20,7 @@ class Post_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('title','discription','content','slug','author','req_count')
-        depth = 3
+        depth = 5
 
 #-----
 class Person_Serializer(serializers.ModelSerializer):
@@ -44,6 +44,10 @@ class Bookmark_Serializer(serializers.ModelSerializer):
 
 #-----
 class Link_Serializer(serializers.ModelSerializer):
+    whos_link = serializers.PrimaryKeyRelatedField(
+        default=serializers.CurrentUserDefault(),
+        queryset=Person.objects.all(),
+    )
     post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all())
     class Meta:
         model = Link
@@ -52,6 +56,7 @@ class Link_Serializer(serializers.ModelSerializer):
 
 #----
 class Post_Detail_Serializer(serializers.ModelSerializer):
+    links = serializers.PrimaryKeyRelatedField(queryset=Link.objects.all())
     class Meta:
         model = Post
         fields = "__all__"

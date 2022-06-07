@@ -56,6 +56,14 @@ class Post_View_Set_Api(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
 
+@permission_classes((IsAuthenticated,))
+class Post_Detail_View_Api(ModelViewSet):
+    """
+        Post ORM model ViewSet
+        """
+    queryset = Post.objects.all()
+    serializer_class = Post_Detail_Serializer
+
 
 # - ViewSet - LINK
 @permission_classes((IsAuthenticated,))
