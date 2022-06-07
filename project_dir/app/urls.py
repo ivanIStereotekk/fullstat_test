@@ -8,8 +8,6 @@ from django.urls import path
 from .views import*
 from rest_framework import routers
 
-from django.views.generic import TemplateView
-
 
 #'''Class - SimpleRouter - and Registred_Routes'''
 router = routers.SimpleRouter()
