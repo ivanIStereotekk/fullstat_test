@@ -35,10 +35,12 @@ class Bookmark_Serializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault(),
         queryset=Person.objects.all(),
     )
+    posts = serializers.PrimaryKeyRelatedField(many=True,queryset=Post.objects.all())
+
     class Meta:
         model = Bookmark
         fields = "__all__"
-        depth = 2
+        #depth = 2
 
 #-----
 class Link_Serializer(serializers.ModelSerializer):
