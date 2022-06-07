@@ -25,32 +25,37 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from rest_framework.response import Response
 
+from rest_framework.decorators import action
+
 
 
 
 # Views classes and functions
 def index(request):
-    hello = "Go to swagger!"
+    hello = "<h2>Go to swagger url : </h2> - http://127.0.0.1:8000/swagger/ !"
     return HttpResponse(hello)
 
 
 # - ViewSet --PERSON
-@permission_classes((IsAuthenticated,))
-class Person_View_Set_Api(ModelViewSet):
+#@permission_classes((IsAuthenticated,))
+'''class Person_View_Set_Api(ModelViewSet):
     """
     Person ORM model ViewSet
     """
     queryset = Person.objects.all()
     serializer_class = Person_Serializer
+'''
 
-@permission_classes((AllowAny,))
+
 # - ViewSet - POST
+@permission_classes((IsAuthenticated,))
 class Post_View_Set_Api(ModelViewSet):
     """
         Post ORM model ViewSet
         """
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
+
 
 # - ViewSet - LINK
 @permission_classes((IsAuthenticated,))
@@ -79,18 +84,12 @@ class Latest_View_Set_Api(ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = Post_Serializer
 
-# ---- GET POST BY SLUG URL
-@permission_classes((AllowAny,))
-class Detail_Post_View(RetrieveAPIView):
-    queryset = Post.objects.all()
-    serializer_class = Post_Serializer
-    lookup_field = 'slug'
 
 # --- GET USER'S BOOKMARK (QuerySet)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def bookmark_by_user_id(request, pk):
+def Get_Bookmark_by_Person_id(request, pk):
     """
     Get bookmark by user_pk http://127.0.0.1:8000/user_bookmarks/1/
     :param request:
@@ -112,7 +111,7 @@ def bookmark_by_user_id(request, pk):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def post_by_author_id(request, pk):
+def Get_Post_By_Author_id(request, pk):
     '''
     Get Queryset by author_id - http://127.0.0.1:8000/author/1/
     :param request:
@@ -129,4 +128,25 @@ def post_by_author_id(request, pk):
             raise Http404
         return Response(serializer.data)
 
+# ---- GET POST BY SLUG URL PLUS - COUNTING_READING
+
+@permission_classes((AllowAny,))
+@api_view(['GET'])
+def Count_And_Slug_View(request, slug):
+    """
+    Get by slug (string) - http://127.0.0.1:8000/api/detail_slug/{slug}/
+    :param request:
+    :param increment():
+    :param post_slug:
+    :return:
+    """
+    if request.method == 'GET':
+        try:
+            post = Post.objects.get(slug=slug)
+            serializer = Post_Serializer(post)
+            post.increment()
+            post.save()
+            return Response(serializer.data)
+        except Exception:
+            raise Http404
 

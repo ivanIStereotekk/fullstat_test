@@ -12,10 +12,16 @@ from .models import Post,Person,Bookmark,Link
 
 #-----
 class Post_Serializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(
+        default=serializers.CurrentUserDefault(),
+        queryset=Person.objects.all(),
+    )
+
     class Meta:
         model = Post
-        fields = "__all__"
+        fields = ('title','discription','content','slug','author','req_count')
         depth = 3
+
 #-----
 class Person_Serializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +31,10 @@ class Person_Serializer(serializers.ModelSerializer):
 
 #-----
 class Bookmark_Serializer(serializers.ModelSerializer):
+    owner = serializers.PrimaryKeyRelatedField(
+        default=serializers.CurrentUserDefault(),
+        queryset=Person.objects.all(),
+    )
     class Meta:
         model = Bookmark
         fields = "__all__"
@@ -42,4 +52,4 @@ class Post_Detail_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = "__all__"
-        depth = 2
+        depth = 3
