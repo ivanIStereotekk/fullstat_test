@@ -35,43 +35,48 @@ def index(request):
 
 
 # - ViewSet --PERSON
-#@permission_classes((IsAuthenticated,))
-'''class Person_View_Set_Api(ModelViewSet):
-    """
-    Person ORM model ViewSet
-    """
-    queryset = Person.objects.all()
-    serializer_class = Person_Serializer
-'''
+
+import django_filters.rest_framework
+
+from rest_framework import filters
+
 
 
 # - ViewSet - POST
 @permission_classes((IsAuthenticated,))
-class Post_View_Set_Api(ModelViewSet):
+class Post_View_Set_Api(generics.ListAPIView):
     """
         Post ORM model ViewSet
         """
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
+
 
 # - ViewSet - LINK
 @permission_classes((IsAuthenticated,))
-class Link_View_Set_Api(ModelViewSet):
+class Link_View_Set_Api(generics.ListAPIView):
     """
         Link ORM model ViewSet
         """
     queryset = Link.objects.all()
     serializer_class = Link_Serializer
-    #lookup_field = 'whos_link'
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
+
 
 # - ViewSet - BOOKMARK
 @permission_classes((IsAuthenticated,))
-class Bookmark_View_Set_Api(ModelViewSet):
+class Bookmark_View_Set_Api(generics.ListAPIView):
     """
         Bookmark ORM model ViewSet
         """
     queryset = Bookmark.objects.all()
     serializer_class = Bookmark_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
+
 
 # FILTERING VIEW SET's
 @permission_classes((AllowAny,))
@@ -82,6 +87,7 @@ class Latest_View_Set_Api(ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = Post_Serializer
 
+
 #------My Posts View
 
 @permission_classes((IsAuthenticated,))
@@ -90,6 +96,8 @@ class My_Posts_View(generics.ListAPIView):
     Posts which written by authenticated user:
     """
     serializer_class = Post_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
     def get_queryset(self):
         user = self.request.user
         return Post.objects.filter(author__pk=user.pk)
@@ -101,6 +109,8 @@ class My_Bookmarks_View(generics.ListAPIView):
     Bookmarks by authenticated user:
     """
     serializer_class = Bookmark_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
     def get_queryset(self):
         user = self.request.user
         return Bookmark.objects.filter(owner=user.pk)
@@ -112,6 +122,8 @@ class My_Reactions_View(generics.ListAPIView):
     Reactions (Link) by authenticated user:
     """
     serializer_class = Link_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
     def get_queryset(self):
         user = self.request.user
         return Link.objects.filter(whos_link=user.pk)
