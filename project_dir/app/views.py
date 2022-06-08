@@ -21,6 +21,8 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from rest_framework.response import Response
 
+from rest_framework import generics
+
 
 
 
@@ -80,9 +82,41 @@ class Latest_View_Set_Api(ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = Post_Serializer
 
+#------My Posts View
+
+@permission_classes((IsAuthenticated,))
+class My_Posts_View(generics.ListAPIView):
+    """
+    Posts which written by authenticated user:
+    """
+    serializer_class = Post_Serializer
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author__pk=user.pk)
+
+#-----MY BOOKMARKS ---
+@permission_classes((IsAuthenticated,))
+class My_Bookmarks_View(generics.ListAPIView):
+    """
+    Bookmarks by authenticated user:
+    """
+    serializer_class = Bookmark_Serializer
+    def get_queryset(self):
+        user = self.request.user
+        return Bookmark.objects.filter(owner=user.pk)
+
+#----My REACTIONS---LINK
+@permission_classes((IsAuthenticated,))
+class My_Reactions_View(generics.ListAPIView):
+    """
+    Reactions (Link) by authenticated user:
+    """
+    serializer_class = Link_Serializer
+    def get_queryset(self):
+        user = self.request.user
+        return Link.objects.filter(whos_link=user.pk)
 
 # --- GET USER'S BOOKMARK (QuerySet)
-
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def Get_Bookmark_by_Person_id(request, pk):
@@ -147,6 +181,8 @@ def Count_And_Slug_View(request, slug):
             return Response(serializer.data)
         except Exception:
             raise Http404
+#-------------------------------
+
 
 
 

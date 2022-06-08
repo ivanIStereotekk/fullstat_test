@@ -23,6 +23,7 @@ router.register(r'latest', Latest_View_Set_Api)
 
 
 
+
 #'''URLS'''
 urlpatterns = [
     path('index/', index),
@@ -30,6 +31,9 @@ urlpatterns = [
     path('posts_author_id/<int:pk>/', Get_Post_By_Author_id,name='author_posts'),
     path('post_read_counter_and_get_by_slug/<str:slug>/', Count_And_Slug_View,name='slug_count'),
     path('reactions_by_user_id/<int:pk>/', Get_Reactions_By_User_id,name='my_reactions'),
+    path('my_posts/',My_Posts_View.as_view(),name='my-posts'),
+    path('my_bookmarks/',My_Bookmarks_View.as_view(),name='my-bookmarks'),
+    path('my_reactions/',My_Reactions_View.as_view(),name='my-reactions'),
 
 
     ]
