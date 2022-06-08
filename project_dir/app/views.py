@@ -36,8 +36,6 @@ def index(request):
 
 # - ViewSet --PERSON
 
-import django_filters.rest_framework
-
 from rest_framework import filters
 
 
@@ -46,7 +44,7 @@ from rest_framework import filters
 @permission_classes((IsAuthenticated,))
 class Post_View_Set_Api(generics.ListAPIView):
     """
-        Post ORM model ViewSet
+        Post ORM model ViewSet - USE FILTER!
         """
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
@@ -58,7 +56,7 @@ class Post_View_Set_Api(generics.ListAPIView):
 @permission_classes((IsAuthenticated,))
 class Link_View_Set_Api(generics.ListAPIView):
     """
-        Link ORM model ViewSet
+        Link ORM model ViewSet - USE FILTER!
         """
     queryset = Link.objects.all()
     serializer_class = Link_Serializer
@@ -70,7 +68,7 @@ class Link_View_Set_Api(generics.ListAPIView):
 @permission_classes((IsAuthenticated,))
 class Bookmark_View_Set_Api(generics.ListAPIView):
     """
-        Bookmark ORM model ViewSet
+        Bookmark ORM model ViewSet - - USE FILTER!
         """
     queryset = Bookmark.objects.all()
     serializer_class = Bookmark_Serializer
@@ -82,7 +80,7 @@ class Bookmark_View_Set_Api(generics.ListAPIView):
 @permission_classes((AllowAny,))
 class Latest_View_Set_Api(ModelViewSet):
     """
-        Latest Post's ViewSet
+        Latest Post's ViewSet - - USE FILTER!
         """
     queryset = Post.objects.order_by('-created_at')
     serializer_class = Post_Serializer
@@ -93,7 +91,7 @@ class Latest_View_Set_Api(ModelViewSet):
 @permission_classes((IsAuthenticated,))
 class My_Posts_View(generics.ListAPIView):
     """
-    Posts which written by authenticated user:
+    Posts which written by authenticated user: - - USE FILTER!
     """
     serializer_class = Post_Serializer
     filter_backends = [filters.OrderingFilter]
@@ -106,7 +104,7 @@ class My_Posts_View(generics.ListAPIView):
 @permission_classes((IsAuthenticated,))
 class My_Bookmarks_View(generics.ListAPIView):
     """
-    Bookmarks by authenticated user:
+    Bookmarks by authenticated user: - USE FILTER!
     """
     serializer_class = Bookmark_Serializer
     filter_backends = [filters.OrderingFilter]
@@ -119,7 +117,7 @@ class My_Bookmarks_View(generics.ListAPIView):
 @permission_classes((IsAuthenticated,))
 class My_Reactions_View(generics.ListAPIView):
     """
-    Reactions (Link) by authenticated user:
+    Reactions (Link) by authenticated user: - - USE FILTER!
     """
     serializer_class = Link_Serializer
     filter_backends = [filters.OrderingFilter]
