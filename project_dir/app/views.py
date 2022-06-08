@@ -11,11 +11,7 @@ from rest_framework.viewsets import ModelViewSet
 
 
 
-from .serializers import Link_Serializer, \
-    Person_Serializer, \
-    Post_Serializer, \
-    Bookmark_Serializer, \
-    Post_Detail_Serializer,Reactions_Serializer
+from .serializers import Link_Serializer,Post_Serializer,Bookmark_Serializer,Reactions_Serializer
 
 from django.http import HttpResponse, Http404
 
@@ -25,7 +21,7 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from rest_framework.response import Response
 
-from rest_framework.decorators import action
+
 
 
 
@@ -98,7 +94,7 @@ def Get_Bookmark_by_Person_id(request, pk):
     """
     if request.method == 'GET':
         try:
-            bookmark = Bookmark.objects.filter(person__pk=pk)
+            bookmark = Bookmark.objects.filter(owner__pk=pk)
             if bookmark[0] is None:
                 raise Http404
             serializer = Bookmark_Serializer(bookmark, many=True)
@@ -128,6 +124,8 @@ def Get_Post_By_Author_id(request, pk):
             raise Http404
         return Response(serializer.data)
 
+
+
 # ---- GET POST BY SLUG URL PLUS - COUNTING_READING
 
 @permission_classes((AllowAny,))
@@ -150,8 +148,9 @@ def Count_And_Slug_View(request, slug):
         except Exception:
             raise Http404
 
-#-----GET USER REACTIONS (LINKS)
 
+
+#-----GET USER REACTIONS (LINKS)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
