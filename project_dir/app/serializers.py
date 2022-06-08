@@ -16,7 +16,6 @@ class Post_Serializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault(),
         queryset=Person.objects.all(),
     )
-
     class Meta:
         model = Post
         fields = ('title','discription','content','slug','author','req_count')
@@ -40,7 +39,7 @@ class Bookmark_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
         fields = "__all__"
-        #depth = 2
+        depth = 2
 
 #-----
 class Link_Serializer(serializers.ModelSerializer):
@@ -63,9 +62,3 @@ class Reactions_Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 #----
-class Post_Detail_Serializer(serializers.ModelSerializer):
-    links = serializers.PrimaryKeyRelatedField(queryset=Link.objects.all())
-    class Meta:
-        model = Post
-        fields = "__all__"
-        depth = 3

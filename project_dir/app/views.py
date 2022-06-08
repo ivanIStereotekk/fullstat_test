@@ -9,7 +9,7 @@ from .models import Person, Post, Bookmark, Link
 
 from rest_framework.viewsets import ModelViewSet
 
-from rest_framework.generics import RetrieveAPIView
+
 
 from .serializers import Link_Serializer, \
     Person_Serializer, \
@@ -56,15 +56,6 @@ class Post_View_Set_Api(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
 
-@permission_classes((IsAuthenticated,))
-class Post_Detail_View_Api(ModelViewSet):
-    """
-        Post ORM model ViewSet
-        """
-    queryset = Post.objects.all()
-    serializer_class = Post_Detail_Serializer
-
-
 # - ViewSet - LINK
 @permission_classes((IsAuthenticated,))
 class Link_View_Set_Api(ModelViewSet):
@@ -73,6 +64,7 @@ class Link_View_Set_Api(ModelViewSet):
         """
     queryset = Link.objects.all()
     serializer_class = Link_Serializer
+    #lookup_field = 'whos_link'
 
 # - ViewSet - BOOKMARK
 @permission_classes((IsAuthenticated,))
