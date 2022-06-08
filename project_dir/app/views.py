@@ -15,7 +15,7 @@ from .serializers import Link_Serializer, \
     Person_Serializer, \
     Post_Serializer, \
     Bookmark_Serializer, \
-    Post_Detail_Serializer
+    Post_Detail_Serializer,Reactions_Serializer
 
 from django.http import HttpResponse, Http404
 
@@ -158,3 +158,25 @@ def Count_And_Slug_View(request, slug):
         except Exception:
             raise Http404
 
+#-----GET USER REACTIONS (LINKS)
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def Get_Reactions_By_User_id(request, pk):
+    '''
+    Get Reactions By user ID - /api/get_user_reactions/{id}/
+    :param request:
+    :param whos_link:
+    :return:
+    '''
+    if request.method == 'GET':
+        try:
+            post = Link.objects.filter(whos_link__pk=pk)
+            if post[0] is None:
+                raise Http404
+            serializer = Link_Serializer(post, many=True)
+        except Exception:
+            raise Http404
+        return Response(serializer.data)
+    

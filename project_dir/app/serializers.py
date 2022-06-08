@@ -53,6 +53,14 @@ class Link_Serializer(serializers.ModelSerializer):
         model = Link
         fields = "__all__"
         depth = 3
+class Reactions_Serializer(serializers.ModelSerializer):
+    whos_link = serializers.PrimaryKeyRelatedField(
+        default=serializers.CurrentUserDefault(),
+        queryset=Person.objects.all(),
+    )
+    class Meta:
+        model = Link
+        fields = "__all__"
 
 #----
 class Post_Detail_Serializer(serializers.ModelSerializer):
