@@ -8,10 +8,9 @@ from rest_framework import serializers
 
 from .models import Post,Person,Bookmark,Link
 
-
-
 #-----
 class Post_Serializer(serializers.ModelSerializer):
+
     author = serializers.PrimaryKeyRelatedField(
         default=serializers.CurrentUserDefault(),
         queryset=Person.objects.all(),

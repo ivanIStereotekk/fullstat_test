@@ -30,8 +30,9 @@ from rest_framework import generics
 
 # Views classes and functions
 def index(request):
-    hello = "<h2>Go to swagger url : </h2> - http://127.0.0.1:8000/swagger/ !"
-    return HttpResponse(hello)
+    link = "http://127.0.0.1:8000/swagger/"
+    data = f"<h2>Go to swagger url : </h2> - {link}"
+    return HttpResponse(data)
 
 
 # - ViewSet --PERSON
@@ -41,10 +42,10 @@ from rest_framework import filters
 
 
 # - ViewSet - POST
-@permission_classes((IsAuthenticated,))
-class Post_View_Set_Api(generics.ListAPIView):
+@permission_classes((AllowAny,))
+class Post_Anonimous_Api(generics.ListAPIView):
     """
-        Post ORM model ViewSet - USE FILTER!
+        Post for anonimous ORM model ViewSet - USE FILTER!
         """
     queryset = Post.objects.all()
     serializer_class = Post_Serializer
@@ -52,40 +53,39 @@ class Post_View_Set_Api(generics.ListAPIView):
     ordering_fields = '__all__'
 
 
-# - ViewSet - LINK
+# Fabriques (PUT-POST-DELETE) VIEW SET's
 @permission_classes((IsAuthenticated,))
-class Link_View_Set_Api(generics.ListAPIView):
+class Post_Fabrique_Api(ModelViewSet):
     """
-        Link ORM model ViewSet - USE FILTER!
+        Fabrique - - USE FILTER!
         """
-    queryset = Link.objects.all()
-    serializer_class = Link_Serializer
+    queryset = Post.objects.all()
+    serializer_class = Post_Serializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = '__all__'
 
-
-# - ViewSet - BOOKMARK
+# Fabriques (PUT-POST-DELETE) VIEW SET's
 @permission_classes((IsAuthenticated,))
-class Bookmark_View_Set_Api(generics.ListAPIView):
+class Bookmark_Fabrique_Api(ModelViewSet):
     """
-        Bookmark ORM model ViewSet - - USE FILTER!
+        Bookmark Fabrique - - USE FILTER!
         """
     queryset = Bookmark.objects.all()
     serializer_class = Bookmark_Serializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = '__all__'
 
-
-# FILTERING VIEW SET's
-@permission_classes((AllowAny,))
-class Latest_View_Set_Api(ModelViewSet):
+@permission_classes((IsAuthenticated,))
+class Link_Fabrique_Api(ModelViewSet):
     """
-        Latest Post's ViewSet - - USE FILTER!
+        Link Fabrique - - USE FILTER!
         """
-    queryset = Post.objects.order_by('-created_at')
-    serializer_class = Post_Serializer
+    queryset = Link.objects.all()
+    serializer_class = Link_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
 
-
+#######################################################################
 #------My Posts View
 
 @permission_classes((IsAuthenticated,))
@@ -191,10 +191,6 @@ def Count_And_Slug_View(request, slug):
             return Response(serializer.data)
         except Exception:
             raise Http404
-#-------------------------------
-
-
-
 
 #-----GET USER REACTIONS (LINKS)
 
