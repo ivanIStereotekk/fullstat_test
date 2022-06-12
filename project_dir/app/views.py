@@ -213,3 +213,11 @@ def Get_Reactions_By_User_id(request, pk):
             raise Http404
         return Response(serializer.data)
     
+from rest_framework import filters
+
+@permission_classes((AllowAny,))
+class Search_Posts_View(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = Post_Serializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'content','discription']

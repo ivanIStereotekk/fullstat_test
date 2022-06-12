@@ -189,26 +189,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 This if/else thing will implement debug/backend email sending regime.
 When it's debug you'll see letters into console
 """
-#if DEBUG:
-    #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#else:
-   # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+   EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 #-------------TURN-IT-ONE!!!
-'''
+
 DEFAULT_FROM_EMAIL = 'ivan.stereotekk@gmail.com'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_PORT = 2525
 EMAIL_HOST_USER = 'capitan.django@mail.ru'
 EMAIL_HOST_PASSWORD = 'bJWDt1rMWVr9gTWhzD8C'
-'''
 
-
-
-# --- admin email
 ADMINS = (('Ivan', 'ivan.stereotekk@gmail.com'),)
 MANAGERS = ADMINS
 
@@ -273,7 +269,7 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': True,
+    'SEND_ACTIVATION_EMAIL': False,
     'SERIALIZERS': {},
 }
 

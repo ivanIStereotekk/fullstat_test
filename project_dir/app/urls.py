@@ -20,8 +20,9 @@ router.register(r'reactions_model', Link_Fabrique_Api)
 #'''URLS'''
 urlpatterns = [
     path('index/', index),
+    path('posts_search/',Search_Posts_View.as_view(),name='search-posts'),
     path('posts_anonimous/',Post_Anonimous_Api.as_view(),name='posts-anonimous'),
-    path('bookmarks_user_id/<int:pk>/', Get_Bookmark_by_Person_id,name='subscriptions'),
+    path('bookmarks_user_id/<int:pk>/', Get_Bookmark_by_Person_id,name='user-bookmarks'),
     path('post_author_id/<int:pk>/', Get_Post_By_Author_id,name='author-posts'),
     path('post_read_counter_and_get_by_slug/<str:slug>/', Count_And_Slug_View,name='slug-count'),
     path('reactions_by_user_id/<int:pk>/', Get_Reactions_By_User_id,name='my-reactions'),
