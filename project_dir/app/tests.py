@@ -36,8 +36,6 @@ class Logg_Out_User_Test_Cases(APITestCase):
     """
     The Pipeline of different test cases for logged off user:
     """
-    client = APIClient()
-    client.force_authenticate(user=None,token=None)
     def test_get_my_posts(self):
         url = 'http://127.0.0.1:8000/api/my_posts/'
         response = self.client.get(url, format='json')
@@ -93,6 +91,40 @@ class Logg_Out_User_Test_Cases(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], "Authentication credentials were not provided.")
+
+# ----------------
+from rest_framework.test import force_authenticate
+from rest_framework.authtoken.models import Token
+
+class Authenticated_User_Test_Cases(APITestCase):
+    def create_setups(self):
+        user_one = Person.objects.create_user(username='person_test_1',password='1q2w3e4r5t6y7u8i9o0p')
+        user_one.save()
+        token_user_one = Token.objects.create(user=user_one)
+        user_two = Person.objects.create_user(username='two_test_person', password='1m2n3b3v3vc4x4x44dghgdh')
+        user_two.save()
+        token_user_two = Token.objects.create(user=user_two)
+        client = APIClient()
+        client.logout()
+        client.force_authenticate(user=user_one, token=token_user_one)
+
+    def test_login(self):
+        url = 'http://127.0.0.1:8000/api/my_posts/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+
+
+
+
+
+    # def test_login(self):
+    #     url = 'http://127.0.0.1:8000/auth/token/login/'
+    #     response = self.client.get(url, format='json')
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #     self.assertEqual(response.data['auth_token'], r'simple text')
+
 
 
 
