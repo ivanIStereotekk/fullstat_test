@@ -92,7 +92,7 @@ class Anonimous_User_Tests_Cases(APITestCase):
 
 class Authenticated_User_Test_Cases(APITestCase):
     def create_setups(self):
-        post_data =  {'title': 'Title', 'discription': 'Discrition', "slug": "Test_Slug", 'content':'Test-Content','author': None, "req_count": 0}
+        post_data =  {'title': 'Title', 'discription': 'Test Discrition', "slug": "test_slug", 'content':'Test-Content','author': None, "req_count": 0}
         user_one = Person.objects.create_user(username='person_test_1',password='1q2w3e4r5t6y7u8i9o0p')
         user_one.save()
         token_user_one = Token.objects.create(user=user_one)
