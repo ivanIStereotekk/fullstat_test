@@ -1,7 +1,7 @@
-#from django.urls import reverse
+
 from rest_framework import status
-from rest_framework.test import APITestCase, APIClient, APIRequestFactory, force_authenticate
-#from app.models import Person,Post
+from rest_framework.test import APITestCase, APIClient
+
 from app.views import *
 
 class Anonimous_User_Tests_Cases(APITestCase):
@@ -30,12 +30,6 @@ class Anonimous_User_Tests_Cases(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["results"], [])
-
-
-class Logg_Out_User_Test_Cases(APITestCase):
-    """
-    The Pipeline of different test cases for logged off user:
-    """
     def test_get_my_posts(self):
         url = 'http://127.0.0.1:8000/api/my_posts/'
         response = self.client.get(url, format='json')
@@ -92,8 +86,9 @@ class Logg_Out_User_Test_Cases(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], "Authentication credentials were not provided.")
 
-# ----------------
-from rest_framework.test import force_authenticate
+
+
+
 from rest_framework.authtoken.models import Token
 
 class Authenticated_User_Test_Cases(APITestCase):
