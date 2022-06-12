@@ -4,6 +4,8 @@ from rest_framework.test import APITestCase, APIClient
 
 from app.views import *
 
+from rest_framework.authtoken.models import Token
+
 class Anonimous_User_Tests_Cases(APITestCase):
     """
     The Pipeline of different test cases methods for anonimous user :
@@ -86,13 +88,11 @@ class Anonimous_User_Tests_Cases(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], "Authentication credentials were not provided.")
 
-
-
-
-from rest_framework.authtoken.models import Token
+#-----------AUTHORIZED TESTS PART
 
 class Authenticated_User_Test_Cases(APITestCase):
     def create_setups(self):
+        post_data =  {'title': 'Title', 'discription': 'Discrition', "slug": "Test_Slug", 'content':'Test-Content','author': None, "req_count": 0}
         user_one = Person.objects.create_user(username='person_test_1',password='1q2w3e4r5t6y7u8i9o0p')
         user_one.save()
         token_user_one = Token.objects.create(user=user_one)
@@ -109,27 +109,7 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
-
-
-
-
-
-    # def test_login(self):
-    #     url = 'http://127.0.0.1:8000/auth/token/login/'
-    #     response = self.client.get(url, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.data['auth_token'], r'simple text')
-
-
-
-
-
-
-
-
-
-
-    # data = {'title': 'Title', 'discription': 'Discrition', "slug": "Test_Slug", 'content': 'Test-Content','author': None, "req_count": 0}
+    #
     # response = self.client.post(url, data, format='json')
     # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
