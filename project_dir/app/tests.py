@@ -10,7 +10,8 @@ class Anonimous_User_Tests_Cases(APITestCase):
     """
     The Pipeline of different test cases methods for anonimous user :
     """
-
+    def setUp(self):
+        self.client = APIClient()
     def test_anonimous_posts(self):
         url = 'http://127.0.0.1:8000/api/posts_anonimous/'
         response = self.client.get(url, format='json')
@@ -192,4 +193,4 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.assertEqual(response.data['is_bookmarked'], True )
 
 
-#
+
