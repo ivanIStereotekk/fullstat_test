@@ -7,10 +7,6 @@ telegram: @EwanPotterman
 
 from .models import Person, Post, Bookmark, Link
 
-from rest_framework.viewsets import ModelViewSet
-
-
-
 from .serializers import Link_Serializer,Post_Serializer,Bookmark_Serializer,Reactions_Serializer
 
 from django.http import HttpResponse, Http404
@@ -35,9 +31,7 @@ def index(request):
 
 from rest_framework import filters
 
-
-
-# - ViewSet - POST
+################################# R E A D O N L Y  V I E W S E T S ##########################
 @permission_classes((AllowAny,))
 class Post_Anonimous_Api(generics.ListAPIView):
     """
@@ -48,8 +42,6 @@ class Post_Anonimous_Api(generics.ListAPIView):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = '__all__'
 
-
-# Fabriques (GET) VIEW SET's
 @permission_classes((IsAuthenticated,))
 class Post_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     """
@@ -60,7 +52,6 @@ class Post_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = '__all__'
 
-# Fabriques (PUT-POST-DELETE) VIEW SET's
 @permission_classes((IsAuthenticated,))
 class Bookmark_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     """
@@ -92,7 +83,6 @@ class Post_Create_Api(generics.CreateAPIView):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = '__all__'
 
-# Fabriques (PUT-POST-DELETE) VIEW SET's
 @permission_classes((IsAuthenticated,))
 class Bookmark_Create_Api(generics.CreateAPIView):
     """
@@ -114,7 +104,7 @@ class Link_Create_Api(generics.CreateAPIView):
     ordering_fields = '__all__'
 
 
-#------My Posts View
+############################### U S E R  V I E V  S E T S #######################
 
 @permission_classes((IsAuthenticated,))
 class My_Posts_View(generics.ListAPIView):
