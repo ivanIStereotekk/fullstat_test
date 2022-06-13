@@ -20,6 +20,9 @@ router.register(r'reactions_model', Link_Fabrique_Api)
 #'''URLS'''
 urlpatterns = [
     path('index/', index),
+    path('create_post/',Post_Create_Api.as_view(),name='create-post'),
+    path('create_bookmark/',Bookmark_Create_Api.as_view(),name='create-bookmark'),
+    path('create_reaction/',Link_Create_Api.as_view(),name='create-reaction'),
     path('posts_search/',Search_Posts_View.as_view(),name='search-posts'),
     path('posts_anonimous/',Post_Anonimous_Api.as_view(),name='posts-anonimous'),
     path('bookmarks_user_id/<int:pk>/', Get_Bookmark_by_Person_id,name='user-bookmarks'),

@@ -1,22 +1,16 @@
-
+from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase
 
 from app.views import *
 
-from rest_framework.authtoken.models import Token
+
 
 class Anonimous_User_Tests_Cases(APITestCase):
     """
     The Pipeline of different test cases methods for anonimous user :
     """
-    def test_create_account(self):
-        url = 'http://127.0.0.1:8000/auth/users/'
-        data = {'username': 'test_one','email':'test@app.com','password':'supersecrettest'}
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Person.objects.get().username, 'test_one')
-        self.assertEqual(Person.objects.get().email, 'test@app.com')
     def test_anonimous_posts(self):
         url = 'http://127.0.0.1:8000/api/posts_anonimous/'
         response = self.client.get(url, format='json')
@@ -87,32 +81,59 @@ class Anonimous_User_Tests_Cases(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'], "Authentication credentials were not provided.")
+    def test_create_account(self):
+        url = 'http://127.0.0.1:8000/auth/users/'
+        data = {'username': 'test_one','email':'test@app.com','password':'supersecrettest'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Person.objects.get().username, 'test_one')
+        self.assertEqual(Person.objects.get().email, 'test@app.com')
 
 #-----------AUTHORIZED TESTS PART
 
 class Authenticated_User_Test_Cases(APITestCase):
-    def create_setups(self):
-        post_data =  {'title': 'Title', 'discription': 'Test Discrition', "slug": "test_slug", 'content':'Test-Content','author': None, "req_count": 0}
-        user_one = Person.objects.create_user(username='person_test_1',password='1q2w3e4r5t6y7u8i9o0p')
-        user_one.save()
-        token_user_one = Token.objects.create(user=user_one)
-        user_two = Person.objects.create_user(username='two_test_person', password='1m2n3b3v3vc4x4x44dghgdh')
-        user_two.save()
-        token_user_two = Token.objects.create(user=user_two)
-        client = APIClient()
-        client.logout()
-        client.force_authenticate(user=user_one, token=token_user_one)
-
-    def test_login(self):
-        url = 'http://127.0.0.1:8000/api/my_posts/'
+    """
+    No Understandable test cases, and no way to find well written docs !
+    """
+    def test_post_model_get(self):
+        test_user = Person.objects.create(username='test_account', email='test@mail.com', password='qwedfgbnjkopoiuy54')
+        test_token = Token.objects.create(user=test_user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + test_token.key)
+        url = 'http://127.0.0.1:8000/api/posts_model/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['previous'], None)
+    def test_bookmarks_model_get(self):
+        test_user = Person.objects.create(username='test_account', email='test@mail.com', password='qwedfgbnjkopoiuy54',pk=1)
+        test_token = Token.objects.create(user=test_user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + test_token.key)
+        url = 'http://127.0.0.1:8000/api/bookmarks_model/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['previous'], None)
+    def test_reactions_model_get(self):
+        test_user = Person.objects.create(username='test_account', email='test@mail.com', password='qwedfgbnjkopoiuy54',pk=1)
+        test_token = Token.objects.create(user=test_user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + test_token.key)
+        url = 'http://127.0.0.1:8000/api/reactions_model/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['previous'], None)
+    # def test_reactions_model_put(self):
+    #     test_user = Person.objects.create(username='test_account', email='test@mail.com', password='qwedfgbnjkopoiuy54',pk=1)
+    #     test_token = Token.objects.create(user=test_user)
+    #     self.client.credentials(HTTP_AUTHORIZATION='Token ' + test_token.key)
+    #     url = 'http://127.0.0.1:8000/api/reactions_model/'
+    #     response = self.client.get(url, format='json')
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #     self.assertEqual(response.data['previous'], None)
+# data = {
+#             "title": "Mahal",
+#             "discription": "Toro Y Moi - MAHAL (Full Album) 2022",
+#             "content": "Mahal is the seventh studio album from Chaz Bear under the Toro y Moi moniker. The record spans through genres and sounds calling back to previous works while charting a new path forward in a way that only Bear can do.",
+#             "slug": "https://youtu.be/I75uynYUjJs",
+#             "author": 15,
+#             "req_count": 'null'
+#         }
 
 
-    #
-    # response = self.client.post(url, data, format='json')
-    # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-
-#   data = {'title': 'Title', 'discription': 'Discrition', "slug": "Test_Slug", 'content': 'Test-Content',
-#                 'author': str(client), "req_count": 0}

@@ -21,11 +21,7 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from rest_framework.response import Response
 
-from rest_framework import generics
-
-
-
-
+from rest_framework import generics, viewsets
 
 
 # Views classes and functions
@@ -53,9 +49,9 @@ class Post_Anonimous_Api(generics.ListAPIView):
     ordering_fields = '__all__'
 
 
-# Fabriques (PUT-POST-DELETE) VIEW SET's
+# Fabriques (GET) VIEW SET's
 @permission_classes((IsAuthenticated,))
-class Post_Fabrique_Api(ModelViewSet):
+class Post_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     """
         Fabrique - - USE FILTER!
         """
@@ -66,7 +62,7 @@ class Post_Fabrique_Api(ModelViewSet):
 
 # Fabriques (PUT-POST-DELETE) VIEW SET's
 @permission_classes((IsAuthenticated,))
-class Bookmark_Fabrique_Api(ModelViewSet):
+class Bookmark_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     """
         Bookmark Fabrique - - USE FILTER!
         """
@@ -76,7 +72,7 @@ class Bookmark_Fabrique_Api(ModelViewSet):
     ordering_fields = '__all__'
 
 @permission_classes((IsAuthenticated,))
-class Link_Fabrique_Api(ModelViewSet):
+class Link_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     """
         Link Fabrique - - USE FILTER!
         """
@@ -85,7 +81,39 @@ class Link_Fabrique_Api(ModelViewSet):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = '__all__'
 
-#######################################################################
+############################### C R E A T E -- A P I ########################################
+@permission_classes((IsAuthenticated,))
+class Post_Create_Api(generics.CreateAPIView):
+    """
+        Fabrique - - USE FILTER!
+        """
+    queryset = Post.objects.all()
+    serializer_class = Post_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
+
+# Fabriques (PUT-POST-DELETE) VIEW SET's
+@permission_classes((IsAuthenticated,))
+class Bookmark_Create_Api(generics.CreateAPIView):
+    """
+        Bookmark Fabrique - - USE FILTER!
+        """
+    queryset = Bookmark.objects.all()
+    serializer_class = Bookmark_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
+
+@permission_classes((IsAuthenticated,))
+class Link_Create_Api(generics.CreateAPIView):
+    """
+        Link Fabrique - - USE FILTER!
+        """
+    queryset = Link.objects.all()
+    serializer_class = Link_Serializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = '__all__'
+
+
 #------My Posts View
 
 @permission_classes((IsAuthenticated,))
