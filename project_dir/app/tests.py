@@ -191,6 +191,11 @@ class Authenticated_User_Test_Cases(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['is_bookmarked'], True )
+    def test_get_my_reactions(self):
+        url = f'http://127.0.0.1:8000/api/reactions_by_user_id/{self.test_user.pk}/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
 
 
