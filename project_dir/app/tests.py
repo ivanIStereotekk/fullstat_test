@@ -133,7 +133,7 @@ class Authenticated_User_Test_Cases(APITestCase):
             is_bookmarked=True,
             like=True,
             disslike=False)
-        self.test_bookmark = Bookmark.objects.create(),
+        self.test_bookmark = Bookmark.objects.create(pk=5),
         self.test_post_one = Post.objects.create(slug='slug_one')
         self.test_post_two = Post.objects.create(slug='slug_two')
     def test_post_model_get(self):
@@ -173,6 +173,7 @@ class Authenticated_User_Test_Cases(APITestCase):
             "owner": int(self.test_user.pk),
             "posts": [self.test_post.pk,self.test_post_one.pk,self.test_post_two.pk],
             "bookmark_name": "Hello from nowhere",
+            "pk":1,
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -195,6 +196,17 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/reactions_by_user_id/{self.test_user.pk}/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_get_posts_model(self):
+        url = f'http://127.0.0.1:8000/api/posts_model/{self.test_post.pk}/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_get_bookmarks_model(self):
+        url = f'http://127.0.0.1:8000/api/bookmarks_model/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+
 
 
 
