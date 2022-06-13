@@ -132,11 +132,9 @@ class Authenticated_User_Test_Cases(APITestCase):
             is_bookmarked=True,
             like=True,
             disslike=False)
-        # self.test_bookmark = Bookmark.objects.create(
-        #     owner=self.test_user.pk,
-        #     #posts=posts,
-        #     bookmark_name='The Bookmark that we deserved!'
-        # )
+        self.test_bookmark = Bookmark.objects.create(),
+        self.test_post_one = Post.objects.create(slug='slug_one')
+        self.test_post_two = Post.objects.create(slug='slug_two')
     def test_post_model_get(self):
         url = 'http://127.0.0.1:8000/api/posts_model/'
         response = self.client.get(url, format='json')
@@ -160,7 +158,7 @@ class Authenticated_User_Test_Cases(APITestCase):
         data = {
             "title": "How to get hadache",
             "discription": "in some point the hadache are the same as pain in a ass ",
-            "content": "Common causes of anal pain include: API Test Cases test cases!",
+            "content": "Common causes of anal pain include: API Test Cases !",
             "slug": "painfull_tests",
             "author": int(self.test_user.pk),
             "req_count": 0,
@@ -168,23 +166,30 @@ class Authenticated_User_Test_Cases(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['slug'],"painfull_tests")
+    def test_publication_bookmark(self):
+        url = 'http://127.0.0.1:8000/api/create_bookmark/'
+        data = {
+            "owner": int(self.test_user.pk),
+            "posts": [self.test_post.pk,self.test_post_one.pk,self.test_post_two.pk],
+            "bookmark_name": "Hello from nowhere",
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['bookmark_name'], "Hello from nowhere")
 
-    # def test_publication_bookmark(self):
-    #     url = 'http://127.0.0.1:8000/api/create_bookmark/'
-    #     data = {
-    #         "owner": int(self.test_user.pk),
-    #         "posts": [1,2,
-    #                   ],
-    #         "bookmark_name": "Hello from nowhere"
-    #     }
-    #     response = self.client.post(url, data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     self.assertEqual(response.data['bookmark_name'], "Hello from nowhere")
+    def test_publication_reaction(self):
+        url = 'http://127.0.0.1:8000/api/create_reaction/'
+        data = {
+            "whos_link": int(self.test_user.pk),
+            "post": self.test_post_one.pk,
+            "estimation": -0,
+            "is_bookmarked": True,
+            "like": True,
+            "disslike": False,
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['is_bookmarked'], True )
 
-    # def test_publication_reaction(self):
-    #     url = 'http://127.0.0.1:8000/api/reactions_model/'
-    #     response = self.client.get(url, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.data['previous'], None)
 
 #
