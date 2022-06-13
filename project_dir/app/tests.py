@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIClient
@@ -202,6 +202,10 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     def test_get_bookmarks_model(self):
         url = f'http://127.0.0.1:8000/api/bookmarks_model/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_get_reactions_model(self):
+        url = f'http://127.0.0.1:8000/api/reactions_model/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
