@@ -197,11 +197,11 @@ class Authenticated_User_Test_Cases(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['is_bookmarked'], True )
-    def test_get_my_reactions(self):
+    def test_get_my_reactions_by_id(self):
         url = f'http://127.0.0.1:8000/api/reactions_by_user_id/{self.test_user.pk}/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    def test_get_posts_model(self):
+    def test_get_posts_model_pk(self):
         url = f'http://127.0.0.1:8000/api/posts_model/{self.test_post.pk}/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -217,22 +217,44 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = 'http://127.0.0.1:8000/auth/users/me/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    def test_get_by_slug(self):
+    def test_get_by_slug_counter(self):
         url = 'http://127.0.0.1:8000/api/post_read_counter_and_get_by_slug/something_like_a_slug/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    def test_retrieve_post_get(self):
+    def test_retrieve_post_get_pk(self):
         url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    def test_retrieve_bookmark_get(self):
+    def test_retrieve_bookmark_get_pk(self):
         url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{self._bookmark.pk}'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    def test_retrieve_reaction_get(self):
+    def test_retrieve_reaction_get_pk(self):
         url = f'http://127.0.0.1:8000/api/retrieve_reaction/{self.test_link.pk}'
-        response = self.client.get(url, format='json')
+        response = self.client.patch(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+######## P A T C H #################
+    def test_retrieve_post_PATCH_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
+        data_patch = {"req_count": 10,}
+        response = self.client.patch(url,data_patch, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['req_count'],10)
+    def test_retrieve_bookmark_PATCH_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{self._bookmark.pk}'
+        data_patch = {"bookmark_name": "When you do well...)", }
+        response = self.client.patch(url,data_patch, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['bookmark_name'], "When you do well...)")
+    def test_retrieve_reaction_PATCH_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_reaction/{self.test_link.pk}'
+        data_patch = {"like": False,
+            "disslike": True,
+        }
+        response = self.client.patch(url, data_patch, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['like'], False)
+        self.assertEqual(response.data['disslike'], True)
 
 
 
