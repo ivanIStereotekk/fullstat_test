@@ -133,7 +133,7 @@ class Authenticated_User_Test_Cases(APITestCase):
             is_bookmarked=True,
             like=True,
             disslike=False)
-        self.test_bookmark = Bookmark.objects.create(pk=5),
+        self.test_bookmark = Bookmark.objects.create(pk=5,),
         self.test_post_one = Post.objects.create(slug='slug_one')
         self.test_post_two = Post.objects.create(slug='slug_two')
     def test_post_model_get(self):
@@ -220,6 +220,17 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_retrieve_bookmark_get(self):
+        _post1 = Post.objects.create(slug='string1')
+        _post2 = Post.objects.create(slug='string2')
+        _queryset = (_post2,_post1)
+        _bookmark = Bookmark.objects.create(owner=self.test_user,bookmark_name="Great Thing!"
+                                            )
+        url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{_bookmark.pk}/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND) # NO SOLVED THOUGH WORKS WELL
+
+
 
 
 
