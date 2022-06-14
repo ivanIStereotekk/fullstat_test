@@ -105,7 +105,7 @@ class Anonimous_User_Tests_Cases(APITestCase):
         self.assertEqual(Person.objects.get().email, 'test@app.com')
 
 
-# -----------AUTHORIZED TESTS PART
+#    A U T H O R I Z E D - T E S T S - P A R T    #
 
 class Authenticated_User_Test_Cases(APITestCase):
     """
@@ -231,9 +231,11 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     def test_retrieve_reaction_get_pk(self):
         url = f'http://127.0.0.1:8000/api/retrieve_reaction/{self.test_link.pk}'
-        response = self.client.patch(url, format='json')
+        response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-######## P A T C H #################
+
+#       P A T C H       #
+
     def test_retrieve_post_PATCH_pk(self):
         url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
         data_patch = {"req_count": 10,}
@@ -255,6 +257,65 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['like'], False)
         self.assertEqual(response.data['disslike'], True)
+
+#       P U T        #
+
+    def test_retrieve_post_PUT_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
+        data_put ={
+            "title": "Ewan Pottermans hints for BBC world news!",
+            "discription": "Few hints from Ewan Potterman",
+            "content": "How to become happier? He Knows! Ask him!",
+            "slug": "happie_hippie",
+            "author": int(self.test_user.pk),
+            "req_count": 1,
+        }
+        response = self.client.put(url,data_put, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['slug'],"happie_hippie")
+    def test_retrieve_bookmark_PUT_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{self._bookmark.pk}'
+        data_put = {
+            "owner": int(self.test_user.pk),
+            "posts": [self.test_post_one.pk,self.test_post_two.pk],
+            "bookmark_name": "Hello from nowhere",
+            "pk":1, }
+        response = self.client.patch(url,data_put, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['bookmark_name'], "Hello from nowhere")
+    def test_retrieve_reaction_PUT_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_reaction/{self.test_link.pk}'
+        data_put = {
+            "whos_link": int(self.test_user.pk),
+            "post": self.test_post_one.pk,
+            "estimation": -0,
+            "is_bookmarked": False,
+            "like": True,
+            "disslike": False,
+        }
+        response = self.client.patch(url, data_put, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['like'], True)
+        self.assertEqual(response.data['disslike'], False)
+
+#       D E L E T E      #
+
+
+    def test_retrieve_reaction_DELETE_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_reaction/{self.test_link.pk}'
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_retrieve_bookmark_DELETE_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{self._bookmark.pk}'
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    # def test_retrieve_post_DELETE_pk(self):
+    #     url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
+    #     response = self.client.delete(url, format='json')
+    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
 
 
 
