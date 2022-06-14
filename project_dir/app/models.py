@@ -80,7 +80,7 @@ class Link(models.Model):
     "Link" model which gives to user(person) some options like
     """
     CHOOSE = (('-0', 'Minus'), ('0', 'Null'), ('1', 'Plus One'))
-    post = models.ForeignKey(Post,on_delete=models.PROTECT,verbose_name='Which_post')
+    post = models.ForeignKey(Post,on_delete=models.DO_NOTHING,verbose_name='Which_post')
     estimation = models.CharField(max_length=4, choices=CHOOSE, verbose_name='My estimation')
     is_bookmarked = models.BooleanField(default=False,verbose_name='Is Bookmarked')
     like = models.BooleanField(default=False, verbose_name='Like')
