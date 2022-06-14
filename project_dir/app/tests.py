@@ -160,13 +160,13 @@ class Authenticated_User_Test_Cases(APITestCase):
             "title": "How to get hadache",
             "discription": "in some point the ...",
             "content": "Common causes of canal pain include: API Test Cases !",
-            "slug": "painfull_tests",
+            "slug": "trying_tests",
             "author": int(self.test_user.pk),
             "req_count": 0,
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['slug'],"painfull_tests")
+        self.assertEqual(response.data['slug'],"trying_tests")
     def test_publication_bookmark(self):
         url = 'http://127.0.0.1:8000/api/create_bookmark/'
         data = {
@@ -208,6 +208,18 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/reactions_model/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_get_user_data(self):
+        url = 'http://127.0.0.1:8000/auth/users/me/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_get_by_slug(self):
+        url = 'http://127.0.0.1:8000/api/post_read_counter_and_get_by_slug/something_like_a_slug/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+
+
 
 
 
