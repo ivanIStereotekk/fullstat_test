@@ -230,7 +230,42 @@ def Get_Reactions_By_User_id(request, pk):
         except Exception:
             raise Http404
         return Response(serializer.data)
-    
+
+####################################### D E L E T E - U P D A T E - O N L Y - U S E R'S  - T H I N G  ########
+@permission_classes((IsAuthenticated,))
+class Retrieve_Reaction_View(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Reactions DELETE - PUT - PATCH - methods.
+    """
+    serializer_class = Link_Serializer
+    def get_queryset(self):
+        user = self.request.user
+        return Link.objects.filter(whos_link=user.pk)
+
+@permission_classes((IsAuthenticated,))
+class Retrieve_Post_View(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Post DELETE - PUT - PATCH - methods.
+    """
+    serializer_class = Post_Serializer
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author=user.pk)
+@permission_classes((IsAuthenticated,))
+class Retrieve_Bookmark_View(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Bookmark DELETE - PUT - PATCH - methods.
+    """
+    serializer_class = Bookmark_Serializer
+    def get_queryset(self):
+        user = self.request.user
+        return Bookmark.objects.filter(owner=user.pk)
+
+
+
+
+
+
 from rest_framework import filters
 
 @permission_classes((AllowAny,))

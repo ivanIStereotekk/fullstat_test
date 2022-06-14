@@ -20,9 +20,14 @@ router.register(r'reactions_model', Link_Fabrique_Api)
 #'''URLS'''
 urlpatterns = [
     path('index/', index),
+    path('retrieve_reaction/<int:pk>',Retrieve_Reaction_View.as_view(),name='retrieve-reaction'),
+    path('retrieve_post/<int:pk>',Retrieve_Post_View.as_view(),name='retrieve-post'),
+    path('retrieve_bookmark/<int:pk>',Retrieve_Bookmark_View.as_view(),name='retrieve-bookmark'),
+    # - - - ^ retrieve and update
     path('create_post/',Post_Create_Api.as_view(),name='create-post'),
     path('create_bookmark/',Bookmark_Create_Api.as_view(),name='create-bookmark'),
     path('create_reaction/',Link_Create_Api.as_view(),name='create-reaction'),
+    # - - - ^ create
     path('posts_search/',Search_Posts_View.as_view(),name='search-posts'),
     path('posts_anonimous/',Post_Anonimous_Api.as_view(),name='posts-anonimous'),
     path('bookmarks_user_id/<int:pk>/', Get_Bookmark_by_Person_id,name='user-bookmarks'),
