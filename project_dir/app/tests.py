@@ -1,4 +1,9 @@
-
+'''
+Author:
+ivan Goncharov
+ivan.stereotekk@gmail.com
+telegram: @EwanPotterman  ©
+'''
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIClient
@@ -114,6 +119,9 @@ class Authenticated_User_Test_Cases(APITestCase):
 
     def setUp(self):
         self.client = APIClient()
+        self.login_user = Person.objects.create(username='Potter', email='potter@gmail.com',
+                                          password='Nukabady567')
+
         self.test_user = Person.objects.create(username='test_account', email='test@mail.com',
                                                password='qwedfgbnjkopoiuy54')
         self.test_token = Token.objects.create(user=self.test_user)
@@ -322,7 +330,21 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
         response = self.client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    def test_token_login(self):
+        url = 'http://127.0.0.1:8000/auth/token/login'
+        user_data = {
+            "username": self.login_user.username,
+            "password":self.login_user.password,
+        }
+        response = self.client.post(url,user_data,format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["non_field_errors"], ["Unable to log in with provided credentials."
+    ])
 
+
+
+
+#      T H E    E N D     ©
 
 
 
