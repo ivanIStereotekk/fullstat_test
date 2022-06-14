@@ -229,6 +229,7 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{_bookmark.pk}/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND) # NO SOLVED THOUGH WORKS WELL
+        ###
 
 
 
