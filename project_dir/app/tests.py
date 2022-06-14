@@ -11,7 +11,7 @@ from rest_framework.test import APITestCase, APIClient
 from app.views import *
 
 
-class Anonimous_User_Tests_Cases(APITestCase):
+class Anonymous_User_Tests_Cases(APITestCase):
     """
     The Pipeline of different test cases methods for anonymous user :
     """
