@@ -126,9 +126,17 @@ class Authenticated_User_Test_Cases(APITestCase):
             author=self.test_user,
             req_count= 0,
         )
+        self.__test_post = Post.objects.create(
+            title='token',
+            discription='key',
+            content='It can\'t touch this.',
+            slug='like_a_slug',
+            author=self.test_user,
+            req_count= 0,
+        )
         self.test_link = Link.objects.create(
             whos_link=self.test_user,
-            post=self.test_post,
+            post=self.__test_post,
             estimation= -0,
             is_bookmarked=True,
             like=True,
@@ -310,11 +318,10 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{self._bookmark.pk}'
         response = self.client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-
-    # def test_retrieve_post_DELETE_pk(self):
-    #     url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
-    #     response = self.client.delete(url, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    def test_retrieve_post_DELETE_pk(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
 
