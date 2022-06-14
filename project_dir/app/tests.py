@@ -250,7 +250,7 @@ class Authenticated_User_Test_Cases(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-#       P A T C H       #
+#       P A T C H    M E T H O D   #
 
     def test_retrieve_post_PATCH_pk(self):
         url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
@@ -274,7 +274,7 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.assertEqual(response.data['like'], False)
         self.assertEqual(response.data['disslike'], True)
 
-#       P U T        #
+#       P U T   M E T H O D     #
 
     def test_retrieve_post_PUT_pk(self):
         url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
@@ -314,7 +314,7 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.assertEqual(response.data['like'], True)
         self.assertEqual(response.data['disslike'], False)
 
-#       D E L E T E      #
+#       D E L E T E   M E T H O D   #
 
 
     def test_retrieve_reaction_DELETE_pk(self):
