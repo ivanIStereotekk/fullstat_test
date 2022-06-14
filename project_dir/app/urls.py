@@ -29,7 +29,7 @@ urlpatterns = [
     path('create_reaction/',Link_Create_Api.as_view(),name='create-reaction'),
     # - - - ^ create
     path('posts_search/',Search_Posts_View.as_view(),name='search-posts'),
-    path('posts_anonimous/',Post_Anonimous_Api.as_view(),name='posts-anonimous'),
+    path('posts_anonymous/',Post_Anonymous_Api.as_view(),name='posts-anonymous'),
     path('bookmarks_user_id/<int:pk>/', Get_Bookmark_by_Person_id,name='user-bookmarks'),
     path('post_author_id/<int:pk>/', Get_Post_By_Author_id,name='author-posts'),
     path('post_read_counter_and_get_by_slug/<str:slug>/', Count_And_Slug_View,name='slug-count'),

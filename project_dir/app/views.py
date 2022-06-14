@@ -19,21 +19,22 @@ from rest_framework.response import Response
 
 from rest_framework import generics, viewsets
 
+from rest_framework import filters
 
-# Views classes and functions
+#       J O K E      H T M L   I N F O
 def index(request):
     link = "http://127.0.0.1:8000/swagger/"
     data = f"<h2>Go to swagger url : </h2> - {link}"
     return HttpResponse(data)
 
 
-# - ViewSet --PERSON
 
-from rest_framework import filters
 
-################################# R E A D O N L Y  V I E W S E T S ##########################
+
+
+#                R E A D   O N L Y    V I E W    S E T S
 @permission_classes((AllowAny,))
-class Post_Anonimous_Api(generics.ListAPIView):
+class Post_Anonymous_Api(generics.ListAPIView):
     """
         Post for anonimous ORM model ViewSet - USE FILTER!
         """
@@ -72,7 +73,7 @@ class Link_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = '__all__'
 
-############################### C R E A T E -- A P I ########################################
+#          C R E A T E      A P I'S
 @permission_classes((IsAuthenticated,))
 class Post_Create_Api(generics.CreateAPIView):
     """
@@ -104,7 +105,7 @@ class Link_Create_Api(generics.CreateAPIView):
     ordering_fields = '__all__'
 
 
-############################### U S E R  V I E V  S E T S #######################
+#       U S E R   V I E V   S E T S
 
 @permission_classes((IsAuthenticated,))
 class My_Posts_View(generics.ListAPIView):
@@ -118,7 +119,7 @@ class My_Posts_View(generics.ListAPIView):
         user = self.request.user
         return Post.objects.filter(author__pk=user.pk)
 
-#-----MY BOOKMARKS ---
+#       M Y   B O O K M A R K S
 @permission_classes((IsAuthenticated,))
 class My_Bookmarks_View(generics.ListAPIView):
     """
@@ -131,7 +132,7 @@ class My_Bookmarks_View(generics.ListAPIView):
         user = self.request.user
         return Bookmark.objects.filter(owner=user.pk)
 
-#----My REACTIONS---LINK
+#      M Y   R E A C T I O N S   or  L I N K
 @permission_classes((IsAuthenticated,))
 class My_Reactions_View(generics.ListAPIView):
     """
@@ -144,7 +145,7 @@ class My_Reactions_View(generics.ListAPIView):
         user = self.request.user
         return Link.objects.filter(whos_link=user.pk)
 
-# --- GET USER'S BOOKMARK (QuerySet)
+#       G E T   U S E R'S   B O O K M A R K (QuerySet)
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def Get_Bookmark_by_Person_id(request, pk):
@@ -165,7 +166,7 @@ def Get_Bookmark_by_Person_id(request, pk):
             raise Http404
 
 
-# GET POST'S BY - USER.ID
+#       G E T   P O S T'S   B Y    U S E R.I D
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
@@ -188,7 +189,7 @@ def Get_Post_By_Author_id(request, pk):
 
 
 
-# ---- GET POST BY SLUG URL PLUS - COUNTING_READING
+#       G E T   P O S T   B Y   S L U G   U R L   P L U S    C O U N T I N G   R E A D I N G S
 
 @permission_classes((AllowAny,))
 @api_view(['GET'])
@@ -210,7 +211,7 @@ def Count_And_Slug_View(request, slug):
         except Exception:
             raise Http404
 
-#-----GET USER REACTIONS (LINKS)
+#       G E T   U S E R   R E A C T I O N S (LINKS)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
@@ -233,7 +234,7 @@ def Get_Reactions_By_User_id(request, pk):
 
 
 
-####################################### D E L E T E - U P D A T E - O N L Y - U S E R'S  - T H I N G  ########
+#                D E L E T E - U P D A T E - O N L Y - U S E R'S  - T H I N G
 @permission_classes((IsAuthenticated,))
 class Retrieve_Reaction_View(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -264,7 +265,7 @@ class Retrieve_Bookmark_View(generics.RetrieveUpdateDestroyAPIView):
         return Bookmark.objects.filter(owner=user.pk)
 
 
-
+#    S E A R C H   V I E W
 from rest_framework import filters
 
 @permission_classes((AllowAny,))
