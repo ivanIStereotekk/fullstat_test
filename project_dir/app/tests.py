@@ -330,25 +330,6 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
         response = self.client.delete(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-    def test_token_login(self):
-        """
-        I really don't know why this test doesn't work properly. Though i tried much times with POSTMAN
-        and it shown good result with obtaining token. Seems like token auth system requires to have real
-        user account. In a real service it generates and saves token into database. But the same time test
-        cases only imitates working and creates user only as class args.
-
-        :return:
-        """
-        url = 'http://127.0.0.1:8000/auth/token/login'
-        user_data = {
-            "username": self.login_user.username,
-            "password":self.login_user.password,
-        }
-        response = self.client.post(url,user_data,format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data["non_field_errors"], ["Unable to log in with provided credentials."
-
-    ])
 
 
 
