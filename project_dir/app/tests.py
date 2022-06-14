@@ -216,6 +216,10 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = 'http://127.0.0.1:8000/api/post_read_counter_and_get_by_slug/something_like_a_slug/'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_retrieve_post_get(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_post/{self.test_post.pk}'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 
