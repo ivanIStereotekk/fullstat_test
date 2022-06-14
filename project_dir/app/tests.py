@@ -13,7 +13,7 @@ from app.views import *
 
 class Anonimous_User_Tests_Cases(APITestCase):
     """
-    The Pipeline of different test cases methods for anonimous user :
+    The Pipeline of different test cases methods for anonymous user :
     """
     def setUp(self):
         self.client = APIClient()
