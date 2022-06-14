@@ -109,7 +109,7 @@ class Anonimous_User_Tests_Cases(APITestCase):
 
 class Authenticated_User_Test_Cases(APITestCase):
     """
-    No Understandable test cases, and no way to find well written docs !
+    Token Authenticated user test cases!
     """
 
     def setUp(self):
@@ -119,8 +119,8 @@ class Authenticated_User_Test_Cases(APITestCase):
         self.test_token = Token.objects.create(user=self.test_user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.test_token.key)
         self.test_post = Post.objects.create(
-            title='How to get hadache',
-            discription='in some point the hadache are the same as pain in ass...',
+            title='How to get token',
+            discription='in some point token better then key',
             content='I\'ve had M.C. Hammer music in my head so much today thats its giving me a headache. I took 2 Tylenol, but....It can\'t touch this.',
             slug='something_like_a_slug',
             author=self.test_user,
@@ -158,8 +158,8 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = 'http://127.0.0.1:8000/api/create_post/'
         data = {
             "title": "How to get hadache",
-            "discription": "in some point the hadache are the same as pain in a ass ",
-            "content": "Common causes of anal pain include: API Test Cases !",
+            "discription": "in some point the ...",
+            "content": "Common causes of canal pain include: API Test Cases !",
             "slug": "painfull_tests",
             "author": int(self.test_user.pk),
             "req_count": 0,
