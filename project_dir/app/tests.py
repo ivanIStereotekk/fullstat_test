@@ -229,6 +229,11 @@ class Authenticated_User_Test_Cases(APITestCase):
         url = f'http://127.0.0.1:8000/api/retrieve_bookmark/{self._bookmark.pk}'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_retrieve_reaction_get(self):
+        url = f'http://127.0.0.1:8000/api/retrieve_reaction/{self.test_link.pk}'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
 
 
