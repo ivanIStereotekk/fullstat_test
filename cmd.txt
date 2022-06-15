@@ -16,6 +16,7 @@ docker run -d -p 6379:6379 redis
 
 Запуск кронтаб бит - :   celery -A project_dir beat -l INFO
 
+docker run --name django_sql -p 5432:5432 -e POSTGRES_USER=$PSGR_USER -e POSTGRES_PASSWORD=$PSGR_PASS -e POSTGRES_DB=my_db -v /Users/user/Desktop/fullstats_test/database:/var/lib/postgresql/database -d postgres:alpine
 
 
 

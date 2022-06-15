@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  server:
+    build: .
+    container_name: django_container
+    command: python manage.py runserver
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    restart: always
+    links:
+      - postgres
+      - redis
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    container_name: db_container
+    volumes:
+      - /database_volume
+    environment:
+      - POSTGRES_DB=my_db
+      - POSTGRES_USER=$PSGR_USER
+      - POSTGRES_PASSWORD=$PSGR_PASS
+    ports:
+      - "5432:5432"
+    restart: always
+  redis:
+    image: "redis:alpine"
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    restart: always
+
