@@ -17,7 +17,8 @@ schema_view = get_schema_view(
                   f"Redis - data for Celery\n"
                   f"Celery - distributed task system \n"
                   f"Djoser - JWT authentication \n"
-                  f"Swagger/DRF-Yasg - docs API\n\n",
+                  f"Swagger/DRF-Yasg - docs API\n\n\n\n\n"
+                  f"IMPORTANT - In admin panel[periodic tasks] you should put Positional Arguments:",
       license=openapi.License(name="@EwanPotterman / ivan.stereotekk@gmail.com "),
    ),
    public=True,

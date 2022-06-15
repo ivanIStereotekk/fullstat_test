@@ -29,7 +29,7 @@ def xsum(numbers):
 Makes request to outer service and get paylad json then saves to database. Just for Example!
 """
 @shared_task
-def get_payload(items):
+def get_payload(items): # In admin panel[periodic tasks] you should put Positional Arguments:
     try:
         _request = req.get(f'https://jservice.io/api/random?count={items}')
         new_obj = Request_JSONB_Model(payload=_request.text)
