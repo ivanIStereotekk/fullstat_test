@@ -1,19 +1,6 @@
 version: "3.9"
 services:
-  server:
-    build: .
-    container_name: django_container
-    command: python manage.py runserver
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    restart: always
-    links:
-      - postgres
-      - redis
-    depends_on:
-      - postgres
+
   postgres:
     image: postgres
     container_name: db_container
@@ -32,4 +19,18 @@ services:
     ports:
       - "6379:6379"
     restart: always
+  server:
+    build: .
+    container_name: django_container
+    command: python manage.py runserver
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    restart: always
+    links:
+      - postgres
+      - redis
+    depends_on:
+      - postgres
 
