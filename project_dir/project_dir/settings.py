@@ -6,19 +6,26 @@ telegram: @EwanPotterman
 '''
 from pathlib import Path
 
+import os
+
+import conf
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# C O N F I G S  F R O M   CONF.PY
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dydybzxin354x^@cybd9qb+r-&io*n=+25mbt=*8^352n6l3$i'
+SECRET_KEY = conf.SECRET_KEY
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = conf.DEBUG
+
+DATABASES = conf.DATABASES
+
+
+
+
 
 
 #--------MY----USER----ABSTRACT
@@ -108,16 +115,9 @@ DATABASES = {
 
 # - postgres here
 
-DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.postgresql',
-'NAME': 'my_db',
-'USER': 'postgres',
-'PASSWORD': 'superpassword',
-'HOST': 'localhost',
-'PORT': '5432'
-},
-}
+
+
+
 
 CACHES = {
     'default': {
@@ -197,16 +197,16 @@ else:
 
 #-------------TURN-IT-ONE!!!
 
-DEFAULT_FROM_EMAIL = 'ivan.stereotekk@gmail.com'
+DEFAULT_FROM_EMAIL = conf.DEFAULT_FROM_EMAIL
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_PORT = 2525
-EMAIL_HOST_USER = 'capitan.django@mail.ru'
-EMAIL_HOST_PASSWORD = 'bJWDt1rMWVr9gTWhzD8C'
+EMAIL_HOST_USER = conf.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = conf.EMAIL_HOST_PASSWORD
 
-ADMINS = (('Ivan', 'ivan.stereotekk@gmail.com'),)
+ADMINS = conf.ADMINS
 MANAGERS = ADMINS
 
 
@@ -278,8 +278,8 @@ DJOSER = {
 
 
 #CORS-HEADERS
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = conf.ALLOWED_HOSTS
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITE_LIST = False
-CORS_ORIGIN_REGEX_WHITE_LIST = []
+CORS_ORIGIN_REGEX_WHITE_LIST = conf.CORS_ORIGIN_REGEX_WHITE_LIST
 #CORS_URLS_REGEX = r'^/api/.*$'
