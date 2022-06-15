@@ -6,10 +6,19 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Demo Project - Project_Dir",
-      default_version='v1',
-      description="Hello from nowhere!",
-      license=openapi.License(name="Driving License expired"),
+      title="RESTful backend service [demo]:  Created By Ivan Goncharov\n\n",
+      default_version='0.0.1',
+      description=f"<h2>For test operations go to -  http://127.0.0.1:8000/redoc/\n\n</h2>"
+                  f"This is test/demo project created for Fullstat\n\n"
+                  f"Stack of technologies:\n"
+                  f"Django (Python)\n"
+                  f"Djangorestframework - Restfull backend\n"
+                  f"Postgress - database\n"
+                  f"Redis - data for Celery\n"
+                  f"Celery - distributed task system \n"
+                  f"Djoser - JWT authentication \n"
+                  f"Swagger/DRF-Yasg - docs API\n\n",
+      license=openapi.License(name="@EwanPotterman / ivan.stereotekk@gmail.com "),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
