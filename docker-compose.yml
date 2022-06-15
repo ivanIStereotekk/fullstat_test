@@ -1,7 +1,7 @@
 version: "3.9"
 services:
 
-  postgres:
+  db_postgres:
     image: postgres
     container_name: db_container
     volumes:
@@ -13,13 +13,13 @@ services:
     ports:
       - "5432:5432"
     restart: always
-  redis:
+  redis_db:
     image: "redis:alpine"
     container_name: redis_container
     ports:
       - "6379:6379"
     restart: always
-  server:
+  web_server:
     build: .
     container_name: django_container
     command: python manage.py runserver

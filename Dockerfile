@@ -12,5 +12,7 @@ COPY . /app
 
 EXPOSE 8000
 
+ENTRYPOINT ["/app/create_superuser_script.sh"]
+
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0", "--port", "8000"]
