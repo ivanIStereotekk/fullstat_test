@@ -30,3 +30,10 @@ Swagger/DRF-Yasg - docs API
 Contacts: @EwanPotterman / ivan.stereotekk@gmail.com 
 
 <img width="1153" alt="DEMO - REST" src="https://user-images.githubusercontent.com/18102432/173818148-52a54210-27e7-45a8-958c-274fc20e679a.png">
+
+
+
+
+
+
+Docker repository: https://hub.docker.com/r/stereotekk/trynityserver
