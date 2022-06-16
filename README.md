@@ -36,4 +36,4 @@ Contacts: @EwanPotterman / ivan.stereotekk@gmail.com
 
 
 
-Docker image: https://hub.docker.com/r/stereotekk/trynityserver
+Docker repository: https://hub.docker.com/r/stereotekk/trynityserver
