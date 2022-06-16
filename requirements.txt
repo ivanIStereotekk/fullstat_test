@@ -21,9 +21,7 @@ cryptography==37.0.2
 defusedxml==0.7.1
 Deprecated==1.2.13
 Django==3.1.14
-django-celery-beat==2.2.1
 django-celery-results==2.3.1
-django-cors-headers==3.12.0
 django-filter==21.1
 django-redis==5.2.0
 django-rest-swagger==2.2.0
@@ -79,6 +77,7 @@ sqlparse==0.4.2
 tomli==2.0.1
 transliterate==1.10.2
 typing_extensions==4.2.0
+tzdata==2022.1
 uritemplate==4.1.1
 urllib3==1.26.9
 vine==5.0.0

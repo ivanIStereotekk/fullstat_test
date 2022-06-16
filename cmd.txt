@@ -26,10 +26,23 @@ RUN celery -A project_dir worker -l INFO
 
 RUN celery -A project_dir beat -l INFO
 
-RUN pip install -U pip setuptools wheel ruamel.yaml.clib==0.2.6
+----------------------------------
+
+celery:
+    build: .
+    container_name: celery
+    working_dir: /app/project_dir/project_dir
+    command: celery -A project_dir worker -l INFO
+  beat:
+    container_name: beat
+    working_dir: /app/project_dir/project_dir
+    command:
+      - celery -A project_dir beat -l INFO
 
 
-yum install python-devel
 
-ruamel.yaml==0.17.21
-ruamel.yaml.clib==0.2.6
+
+
+
+
+ENTRYPOINT ["/app/project_dir/create_superuser_script.sh","/app/project_dir/project_dir/celery_commands.sh"]

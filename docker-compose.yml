@@ -1,5 +1,18 @@
 version: "3.9"
 services:
+  web_server:
+    build: .
+    container_name: django_container
+    command: python /app/project_dir/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    restart: always
+    links:
+      - db_postgres
+      - redis_db
+    depends_on:
+      - db_postgres
+      - redis_db
   db_postgres:
     build: ./database
     environment:
@@ -19,20 +32,4 @@ services:
       - "6379:6379"
     restart: always
 
-  web_server:
-    build: .
-
-    container_name: django_container
-    command: python manage.py runserver
-    volumes:
-      - .:/app/project_dir
-    ports:
-      - "8000:8000"
-    restart: always
-    links:
-      - db_postgres
-      - redis_db
-    depends_on:
-      - db_postgres
-      - redis_db
 
