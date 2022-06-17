@@ -4,14 +4,10 @@ MAINTAINER Ivan Goncharov <ivan.stereotekk@gmail.com>
 
 COPY ./requirements.txt  /app/requirements.txt
 
-COPY ./additional_reqs.txt  /app/additional_reqs.txt
 
 RUN pip install --upgrade pip
 
 RUN pip install --no-cache-dir  -r /app/requirements.txt
-
-RUN pip install --no-cache-dir  -r /app/additional_reqs.txt
-
 
 COPY . /app
 

@@ -8,7 +8,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','*']
+
 
 DATABASES = {
 'default': {
@@ -27,4 +27,3 @@ DEFAULT_FROM_EMAIL = os.getenv('DEF_EMAIL')
 
 ADMINS = ((os.getenv('ADMIN_NAME'), os.getenv('DEF_EMAIL')),)
 
-CORS_ORIGIN_REGEX_WHITE_LIST = []

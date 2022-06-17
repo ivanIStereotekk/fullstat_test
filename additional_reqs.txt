@@ -1,3 +1,0 @@
-django-cors-headers
-django-celery-beat
-Django==4.0.5
