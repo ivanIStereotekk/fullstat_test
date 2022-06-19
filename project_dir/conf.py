@@ -6,9 +6,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-DEBUG = True
-
-
+DEBUG = False
 
 DATABASES = {
 'default': {

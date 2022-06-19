@@ -33,7 +33,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static:/app/project_dir/static
+      - /app/project_dir/static:/static
     ports:
       - "80:80"
     depends_on:
