@@ -176,6 +176,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -278,8 +279,8 @@ DJOSER = {
 
 
 #CORS-HEADERS
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITE_LIST = False
-CORS_ORIGIN_REGEX_WHITE_LIST = ['*',]
+CORS_ORIGIN_REGEX_WHITE_LIST = ['*']
 #CORS_URLS_REGEX = r'^/api/.*$'
