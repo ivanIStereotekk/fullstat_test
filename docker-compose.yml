@@ -3,7 +3,6 @@ services:
   web_server:
     build: .
     container_name: django_container
-    command: python /app/project_dir/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     restart: always
@@ -31,5 +30,13 @@ services:
     ports:
       - "6379:6379"
     restart: always
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/app/project_dir/static
+    ports:
+      - "80:80"
+    depends_on:
+      - web_server
 
 
