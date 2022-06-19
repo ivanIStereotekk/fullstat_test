@@ -2,7 +2,6 @@ version: "3.9"
 services:
   web_server:
     build: .
-    container_name: django_container
     ports:
       - "8000:8000"
     restart: always
@@ -20,7 +19,6 @@ services:
       - POSTGRES_DB=$POSTGRES_NAME
       - POSTGRES_USER=$POSTGRES_USER
       - POSTGRES_PASSWORD=$POSTGRES_PASS
-    container_name: db_container
     volumes:
       - ./database:/app/database
     ports:
@@ -28,7 +26,6 @@ services:
     restart: always
   redis_db:
     image: "redis:alpine"
-    container_name: redis_container
     ports:
       - "6379:6379"
     restart: always
