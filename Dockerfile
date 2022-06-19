@@ -15,6 +15,7 @@ COPY ./entrypoint.sh  /app
 
 WORKDIR /app/project_dir
 
+ENTRYPOINT ["sh", "/entrypoint.sh"]
+
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
