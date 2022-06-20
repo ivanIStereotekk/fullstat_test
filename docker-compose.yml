@@ -6,10 +6,11 @@ services:
       - "8000:8000"
     restart: always
     volumes:
-      - /app/project_dir/static:/static
+      - ./project_dir/static:/static
     links:
       - db_postgres
       - redis_db
+      - nginx
     depends_on:
       - db_postgres
       - redis_db
@@ -32,10 +33,17 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - /app/project_dir/static:/static
+      - ./project_dir/static:/app/static
     ports:
       - "80:80"
     depends_on:
       - web_server
+      - db_postgres
+      - redis_db
+    links:
+      - web_server
+      - db_postgres
+      - redis_db
+      - nginx
 
 
