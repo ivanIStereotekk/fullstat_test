@@ -34,6 +34,7 @@ services:
     build: ./nginx
     volumes:
       - ./project_dir/static:/app/static
+      - ./nginx/default.conf:/app/nginx/default.conf
     ports:
       - "80:80"
     depends_on:
@@ -44,6 +45,6 @@ services:
       - web_server
       - db_postgres
       - redis_db
-      - nginx
+
 
 
