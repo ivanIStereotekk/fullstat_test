@@ -11,11 +11,12 @@ RUN pip install --no-cache-dir  -r /app/requirements.txt
 
 COPY . /app
 
-COPY ./entrypoint.sh  /app/project_dir
+COPY ./entrypoint.sh  /app/project_dir/entrypoint.sh
 
 WORKDIR /app/project_dir
 
-VOLUME /project_dir/static/
+VOLUME ./project_dir/static/
+
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
 
