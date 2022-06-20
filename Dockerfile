@@ -18,7 +18,7 @@ WORKDIR /app/project_dir
 VOLUME ./project_dir/static/
 
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+ENTRYPOINT ["sh", "/app/project_dir/entrypoint.sh"]
 
 EXPOSE 8000
 
