@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir  -r /app/requirements.txt
 
 COPY . /app
 
-COPY ./entrypoint.sh  /app
+COPY ./entrypoint.sh  /app/project_dir
 
 WORKDIR /app/project_dir
 

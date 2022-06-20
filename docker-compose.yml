@@ -10,7 +10,6 @@ services:
     links:
       - db_postgres
       - redis_db
-      - nginx
     depends_on:
       - db_postgres
       - redis_db
@@ -39,12 +38,8 @@ services:
       - "80:80"
     depends_on:
       - web_server
-      - db_postgres
-      - redis_db
     links:
       - web_server
-      - db_postgres
-      - redis_db
 
 
 
