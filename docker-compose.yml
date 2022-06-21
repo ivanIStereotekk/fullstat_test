@@ -6,7 +6,7 @@ services:
       - "8000:8000"
     restart: always
     volumes:
-      - ./project_dir/static:/static
+      - ./project_dir/static:/app/project_dir/static
     links:
       - db_postgres
       - redis_db
@@ -32,8 +32,8 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - ./project_dir/static:/app/static
-      - ./nginx/default.conf:/app/nginx/default.conf
+      - ./project_dir/static:/app/project_dir/static
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
     depends_on:
