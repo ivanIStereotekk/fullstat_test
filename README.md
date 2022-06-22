@@ -1,10 +1,5 @@
 # fullstat_test
-Currently learning ropes with NGINX - still writing project.
-
-
--   Hello my dear friend and hopefully employer ! -
--   
-- Currently i trying hard to get the job as backend developer. -
+Н
 
 RESTful backend service [demo]: Created By Ivan Goncharov
 
