@@ -29,7 +29,18 @@ get repository on your local machine...
 - $ docker-compose build
 - $ docker-compose up
 
-Don't forget $python manage.py createsuperuser - for using django admin
+Creating superuser:
+---------------------
+- $  docker exec -it container_id bash
+- $  python manage.py createsuperuser
+- ...follow steps 
+ 
+Making migrations:
+---------------------
+- $  docker exec -it container_id bash
+- $  python manage.py migrate
+
+
 
 - IMPORTANT - Into admin panel[periodic tasks] you should put Positional Arguments :
 
