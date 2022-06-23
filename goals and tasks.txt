@@ -1,4 +1,57 @@
-вакансия
+GOAL
+Read the news feed, probably liked and favorite news. Have
+the ability to evaluate the rating and number of views on it, as well as
+Opportunity to re-write
+USER HISTORY
+I, as a user, want to register in the service, specify a login, password and
+Email address.
+I, as a user, want to see a list of current news in my feed,
+specified title, preview, short description, number of views and
+article rating.
+I, as a user, want a large amount of news in the feed on one
+go to page between news
+I, as a user, want to sort news by rating and publication date
+I, as a user, want to read a specific article by seeing the title, preview,
+content of articles, number of views and rating of articles
+I, as a user, want to upvote or downvote a post, remove my
+review
+I, as a user, want to communicate liked articles
+I, as a user, want to find an article in the address bar by writing its title
+transliteration
+I, as an authorized user, want to write my article, indicating in it
+title, preview, short description and content
+one
+FULLSTATS TEST
+I, as an authorized user, want to add articles to my favorites,
+recommendation articles in favorites, deleting them
+BUSINESS REQUIREMENTS
+The article found the following information
+- Article article (number)
+- Title of the article in transliteration (string)
+- Article title (string)
+- Author (string)
+- Summary (line | max. 250 characters)
+- Content (string)
+- Number of views (number)
+- Favorited (true/false)
+- My score (-1, 0, 1)
+- Rating (number)
+The view count should correspond to each successful receipt of the article
+user
+Everyone should start the process of updating information on all products,
+to which users are subscribed.
+TECHNICAL PRESENTATION
+Django app providing RESTful API for JWT authentication,
+getting all the articles by a normal user and using their articles
+authorized user (CRUD), editing the list of likes and
+Featured Articles (Read + Update), Get Articles
+by sequence and quantity (pagination by pages + sorting by
+rating, views and publication date).
+
+
+
+
+Russian #####################
 BACKEND DEVELOPER
 ЦЕЛЬ
 Читать ленту новостей, отслеживать понравившиеся и избранные новости. Иметь
