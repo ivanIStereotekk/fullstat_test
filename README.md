@@ -1,5 +1,5 @@
 # fullstat_test
-Get all images from repository docker stereotekk/fullstat
+Get all images from docker hub - https://hub.docker.com/repository/docker/stereotekk/fullstat
 
 RESTful backend service [demo]: Created By Ivan Goncharov
 
