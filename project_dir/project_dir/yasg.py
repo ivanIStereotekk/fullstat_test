@@ -8,7 +8,7 @@ schema_view = get_schema_view(
    openapi.Info(
       title="RESTful backend service [demo]:  Created By Ivan Goncharov\n\n",
       default_version='0.0.1',
-      description=f"<h2>For test operations go to -  http://127.0.0.1:8000/redoc/\n\n</h2>"
+      description=f"<h2>For test operations go to -  http://localhost/redoc/\n\n</h2>"
                   f"This is test/demo project created for Fullstat\n\n"
                   f"Stack of technologies:\n"
                   f"Django (Python)\n"
