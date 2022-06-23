@@ -1,15 +1,15 @@
 # fullstat_test
-Н
+Get all images from docker hub - https://hub.docker.com/repository/docker/stereotekk/fullstat
 
 RESTful backend service [demo]: Created By Ivan Goncharov
 
  0.0.1 
 
-[ Base URL: 127.0.0.1:8000/ ]
+[ Base URL:localhost:80 ]
 
 http://127.0.0.1:8000/swagger/?format=openapi
 
-For test operations go to - http://127.0.0.1:8000/redoc/
+For test operations go to - http://localhost/redoc/
 
 This is test/demo project created for Fullstat
 
