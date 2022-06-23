@@ -1,6 +1,7 @@
 # fullstat_test
 
-Description of testtask (file): goals and tasks.txt
+Description of testtask (file): 
+- goals and tasks.txt
 
 
 Stack:
