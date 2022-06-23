@@ -1,41 +1,62 @@
 # fullstat_test
-Get all images from docker hub - https://hub.docker.com/repository/docker/stereotekk/fullstat
 
-RESTful backend service [demo]: Created By Ivan Goncharov
+Description of testtask (file): 
+- goals and tasks.txt
 
- 0.0.1 
 
-[ Base URL:localhost:80 ]
+Stack:
+---------------------
+- Nginx 
+- Gunicorn 
+- Django
+- Djangorestframework
+- Celery
+- Postgres
+- Redis
+- Swagger
 
-http://127.0.0.1:8000/swagger/?format=openapi
+![WSGI](https://user-images.githubusercontent.com/18102432/175305423-d381ef53-5ec6-462f-9c36-6808954cc444.jpeg)
 
-For test operations go to - http://localhost/redoc/
-
-This is test/demo project created for Fullstat
-
-Stack of technologies:
-
-Django (Python)
-
-Djangorestframework - Restfull backend
-
-Postgress - database
-
-Redis - data for Celery
-
-Celery - distributed task system
-
-Djoser - JWT authentication
-
-Swagger/DRF-Yasg - docs API
-
-Contacts: @EwanPotterman / ivan.stereotekk@gmail.com 
-
-<img width="1153" alt="DEMO - REST" src="https://user-images.githubusercontent.com/18102432/173818148-52a54210-27e7-45a8-958c-274fc20e679a.png">
+Images on dockerhub - https://hub.docker.com/repository/docker/stereotekk/fullstat
+----------------------
 
 
 
+Steps to run:
+----------------------
+get repository on your local machine...
+
+- $ docker-compose build
+- $ docker-compose up
+
+Creating superuser:
+---------------------
+- $  docker exec -it container_id bash
+- $  python manage.py createsuperuser
+- ...follow steps 
+ 
+Making migrations:
+---------------------
+- $  docker exec -it container_id bash
+- $  python manage.py migrate
 
 
 
-Docker repository: https://hub.docker.com/r/stereotekk/trynityserver
+IMPORTANT - Into admin panel[periodic tasks] you should put Positional Arguments :
+---
+
+
+
+RESTful backend service [demo]:
+----------------------
+
+
+API documentation: http://localhost/swagger
+
+For test operations go to - http://localhost/redoc
+
+
+
+
+
+
