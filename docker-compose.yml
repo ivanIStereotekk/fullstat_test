@@ -13,6 +13,7 @@ services:
     depends_on:
       - db_postgres
       - redis_db
+
   db_postgres:
     build: ./database
     environment:
