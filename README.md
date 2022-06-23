@@ -42,7 +42,8 @@ Making migrations:
 
 
 
-- IMPORTANT - Into admin panel[periodic tasks] you should put Positional Arguments :
+IMPORTANT - Into admin panel[periodic tasks] you should put Positional Arguments :
+---
 
 
 
