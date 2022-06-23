@@ -31,16 +31,17 @@ get repository on your local machine...
 
 Don't forget $python manage.py createsuperuser - for using django admin
 
+- IMPORTANT - Into admin panel[periodic tasks] you should put Positional Arguments :
+
 
 
 RESTful backend service [demo]:
 ----------------------
 
-[ Base URL:localhost:80 ]
 
-http://localhost/swagger/?format=openapi
+API documentation: http://localhost/swagger
 
-For test operations go to - http://localhost/redoc/
+For test operations go to - http://localhost/redoc
 
 
 
