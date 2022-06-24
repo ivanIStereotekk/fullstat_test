@@ -10,7 +10,7 @@ import uuid
 
 from django.urls import reverse
 from django.db import models
-from django.contrib.auth.models import AbstractUser,User
+from django.contrib.auth.models import AbstractUser
 
 # ---ORM Models:
 class Person(AbstractUser):
