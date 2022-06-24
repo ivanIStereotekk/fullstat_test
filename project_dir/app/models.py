@@ -77,7 +77,7 @@ class Bookmark(models.Model):
 
 class Link(models.Model):
     """
-    "Link" model which gives to user(person) some options like
+    "Link" model which gives to user(person) some additional options to leave some reactions
     """
     CHOOSE = (('-0', 'Minus'), ('0', 'Null'), ('1', 'Plus One'))
     post = models.ForeignKey(Post,on_delete=models.DO_NOTHING,verbose_name='Which_post')
