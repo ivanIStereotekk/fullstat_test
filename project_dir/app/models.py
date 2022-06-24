@@ -7,7 +7,7 @@ telegram: @EwanPotterman
 
 import uuid
 
-import requests
+
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import AbstractUser,User
