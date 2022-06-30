@@ -47,13 +47,25 @@ IMPORTANT - Into admin panel[periodic tasks] you should put Positional Arguments
 
 
 
-RESTful backend service [demo]:
+RESTful backend service:
 ----------------------
 
 
 API documentation: http://localhost/swagger
 
 For test operations go to - http://localhost/redoc
+
+API url's:
+-----
+
+<img width="448" alt="API list" src="https://user-images.githubusercontent.com/18102432/175573627-1c37deae-fafd-4dac-9ed0-f0352141834c.png">
+
+Auth/Token URL's:
+----
+
+<img width="456" alt="Auth Api" src="https://user-images.githubusercontent.com/18102432/175573816-30602e73-128e-4715-8363-d32728a4a7e2.png">
+
+
 
 
 
