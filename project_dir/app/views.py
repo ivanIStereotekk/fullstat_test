@@ -21,6 +21,8 @@ from rest_framework import generics, viewsets
 
 from rest_framework import filters
 
+
+
 #       J O K E      H T M L   I N F O
 def index(request):
     link = "http://127.0.0.1:8000/swagger/"
@@ -74,6 +76,7 @@ class Link_Fabrique_Api(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
 
 #          C R E A T E      A P I'S
+
 @permission_classes((IsAuthenticated,))
 class Post_Create_Api(generics.CreateAPIView):
     """
@@ -236,6 +239,7 @@ def Get_Reactions_By_User_id(request, pk):
 
 #                D E L E T E - U P D A T E - O N L Y - U S E R'S  - T H I N G
 @permission_classes((IsAuthenticated,))
+
 class Retrieve_Reaction_View(generics.RetrieveUpdateDestroyAPIView):
     """
     Users Reactions DELETE - PUT - PATCH - methods.

@@ -15,7 +15,10 @@ DATABASES = {
 'USER': os.getenv('POSTGRES_USER'),
 'PASSWORD': os.getenv('POSTGRES_PASS'),
 'HOST': os.getenv('POSTGRES_HOST'),
-'PORT': '5432'
+'PORT': '5432',
+'ATOMIC_REQUEST':True, # This parameter makes all CRUD actions into one controller (View) as one transaction.
+    # Also you may set decorator on each view function  - from django.db.transaction import atomic - @atomic
+
 },
 }
 
